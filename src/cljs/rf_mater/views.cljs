@@ -25,7 +25,7 @@
                      	 :titleStyle {:color (color :lime200)
                                     :textAlign :center
                         }}]
-       		[ui/paper {:style {:height "100"
+       		[ui/paper {:style {:height "200"
                              :width "100%"
   													 :margin-top "10"
                              :textAlign "center"
