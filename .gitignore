@@ -1,0 +1,8 @@
+/*.log
+/target
+/*-init.clj
+/.env
+/pom.xml
+/.lein-*
+/resources/public/js/compiled
+out
