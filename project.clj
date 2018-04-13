@@ -26,7 +26,7 @@
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"
                                     "test/js"
                                     "resources/public/css"]
-	:uberjar-name "rf-mater.jar"
+
   :figwheel {:css-dirs ["resources/public/css"]
              :ring-handler rf-mater.handler/dev-handler}
 
@@ -56,7 +56,9 @@
 
     :plugins      [[lein-figwheel "0.5.13"]
                    [lein-doo "0.1.8"]
-                   [lein-pdo "0.1.1"]]}}
+                   [lein-pdo "0.1.1"]]}
+ 		:uberjar {:main rf-mater.server, :aot :all}
+    }
 
   :cljsbuild
   {:builds
