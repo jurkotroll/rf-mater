@@ -30,30 +30,42 @@
 											}
 							 :zDepth "1"}]))
 
-
-
-(defn new-card [{:keys [title subtitle]}]
-  (let [
-        ;title (:title titles) subtitle (:subtitle titles)
-        ]
-    [ui/card {:style {:height "auto"
-                      :width "auto"
-                      :margin "10px 0px"}}
-     [ui/card-header {:title title
-                      :subtitle subtitle}]]))
-
-(defn car-card []
+(defn car-destination-card []
   (let []
-    (new-card {:title "Nazwa"
-               :subtitle "numer porządkowy auta"})))
+    (fn []
+      [ui/card {:style {:margin "10px 0px"}}
 
-(defn new-passanger-card []
-  (let []
-    (new-card {:subtitle "dodaj pasażera"})))
+       	[:div.destination {:style {:padding "5px"
+							 				 :display "flex"
+							 				 :justify-content "space-between"
+                       :align-items "center"}}
 
-(defn list-of-passangers []
-  (let []
-    (new-card {:title "Kto już w aucie"})))
+        	[ui/card-title {:title "Jańskie Łaźnie"
+                        	:subtitle "miejsce docelowe"
+                        	:style {:padding "5px"}}]
+
+        	[ui/raised-button {:label "negocjacja"
+                           	 :primary true
+                           	 :disable false}]]
+      	[ui/divider]
+	      [:div.day {:style {:padding "5px"
+											 :display "flex"
+											 :justify-content "space-between"
+											 :align-items "center"}}
+
+					[ui/card-title {:title "sobota, 14-04-18"
+													:subtitle "dzień wyjazdu"
+													:style {:padding "5px"
+                     							:font-size "20px"}}]
+
+					[ui/raised-button {:label "negocjacja"
+														 :primary true
+														 :disable false}]]
+       ])))
+
+
+
+
 
 (defn home-panel []
   (let [name (re-frame/subscribe [::subs/name])]
@@ -64,10 +76,9 @@
                                          )}
      		[:div
        		[app-bar]
-       		[jumbotron]
-					[car-card]
-       		[new-passanger-card]
-       		[list-of-passangers]
+       		;[jumbotron]
+
+					[car-destination-card]
         	[:a {:href "#/about"} "go to About Page"]
 
 
