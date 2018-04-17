@@ -105,7 +105,7 @@
         	[ui/badge {:badge-content "3"
                      :primary true
                    	 :style {:display "flex"
-                     :flex-grow "2"
+                     ;:flex-grow "2"
                      :padding "12px 12px 12px 12px"}}
           	[ui/avatar {:color (color :deepOrange300)
                         :backgroundcolor (color :purple500)
