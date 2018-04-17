@@ -30,7 +30,7 @@
 											}
 							 :zDepth "1"}]))
 
-(defn car-destination-card []
+(defn destination-card []
   (let []
     (fn []
       [ui/card {:style {:margin "10px 0px"}}
@@ -47,7 +47,7 @@
         	[ui/raised-button {:label "negocjacja"
                            	 :primary true
                            	 :disable false}]]
-      	[ui/divider]
+
 	      [:div.day {:style {:padding "5px"
 											 :display "flex"
 											 :justify-content "space-between"
@@ -61,9 +61,96 @@
 					[ui/raised-button {:label "negocjacja"
 														 :primary true
 														 :disable false}]]
+      	[ui/divider]
+      	[ui/card-text
+        	[ui/table
+          	[ui/table-body {:display-row-checkbox false}
+            	[ui/table-row
+              	[ui/table-row-column "odległosc"]
+             		[ui/table-row-column "150km"]
+            	]
+            	[ui/table-row
+              	[ui/table-row-column "w drodze"]
+             		[ui/table-row-column "2,5h"]
+            	]
+            	[ui/table-row
+              	[ui/table-row-column "wyjazd"]
+             		[ui/table-row-column "7:00"]
+            	]
+            	[ui/table-row
+              	[ui/table-row-column "na stoku"]
+             		[ui/table-row-column "8h"]
+            	]
+            	[ui/table-row
+              	[ui/table-row-column "powrot"]
+             		[ui/table-row-column "18:00"]
+            	]]]]
        ])))
 
+(defn avatarN []
+  [ui/avatar "2"])
 
+(defn car-card []
+  (let []
+    (fn []
+      [ui/card {:style {:margin "10px 0px"}}
+      	[:div.destination {:style {:padding "5px"
+							 				 :display "flex"
+							 				 :justify-content "space-between"
+                       :align-items "center"}}
+       		[ui/card-title {:title "VW T4"
+													:subtitle (str "czerwony" ", " "Blueberry Machine" ", " "miejsc razem " "5")
+													:style {:padding "5px"}}]
+       		;(avatarN)
+        	[ui/badge {:badge-content "3"
+                     :primary true
+                   	 :style {:display "flex"
+                     :flex-grow "2"
+                     :padding "12px 12px 12px 12px"}}
+          	[ui/avatar {:color (color :deepOrange300)
+                        :backgroundcolor (color :purple500)
+                        ;:size "80"
+                        :margin "0px"
+                      	:children "2"
+                       	}
+            	]]
+          ]
+      	[ui/divider]
+      	[ui/card-text
+        	[ui/table ;{:display-row-checkbox false}
+         		[ui/table-header {:display-select-all false
+                              :adjust-for-checkbox false}
+            	[ui/table-row
+              	[ui/table-header-column "imię"]
+              	[ui/table-header-column "status"]]]
+          	[ui/table-body {:display-row-checkbox false}
+            	[ui/table-row
+              	[ui/table-row-column "Jurek"]
+             		[ui/table-row-column "kierowca"]
+            	]
+            	[ui/table-row
+              	[ui/table-row-column "Olek"]
+             		[ui/table-row-column "pasażer 1"]
+            	]
+            	[ui/table-row
+              	[ui/table-row-column "Magda"]
+             		[ui/table-row-column "pasażer 2"]
+            	]
+
+            ]
+
+          ]
+       		[:div {:style {:padding "5px"
+								 				 :display "flex"
+								 				 :justify-content "space-between"
+	                       :align-items "center"}}
+          	[ui/text-field {:hint-text "pasażer 3"
+                            :floating-label-text "wpisz imię"}]
+          	[ui/floating-action-button {:mini true
+                                        :primary true}
+            	[ic/content-add]]]
+        ]
+       ])))
 
 
 
@@ -78,7 +165,8 @@
        		[app-bar]
        		;[jumbotron]
 
-					[car-destination-card]
+					[destination-card]
+       		[car-card]
         	[:a {:href "#/about"} "go to About Page"]
 
 
