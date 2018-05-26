@@ -11,3 +11,7 @@
  ::set-active-panel
  (fn [db [_ active-panel]]
    (assoc db :active-panel active-panel)))
+
+(reg-event-db
+   :add-passenger
+  (fn [pas]))

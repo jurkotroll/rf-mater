@@ -10,7 +10,7 @@
                  [yogthos/config "0.8"]
                  [ring "1.4.0"]
                  [ring/ring-defaults "0.3.1"]
-               	 [lein-heroku "0.5.3"]
+                 [lein-heroku "0.5.3"]
                  [cljsjs/react "16.3.0-0"]
                  [cljsjs/react-dom "16.3.0-0"]
                  [cljs-react-material-ui "0.2.48"]]
@@ -35,7 +35,7 @@
                      :stylesheet   rf-mater.css/screen
                      :compiler     {:output-to     "resources/public/css/screen.css"
                                     :pretty-print? true}}]}
-	:heroku {:app-name "rf-mater"}
+  :heroku {:app-name "rf-mater"}
   :less {:source-paths ["less"]
          :target-path  "resources/public/css"}
 
@@ -57,7 +57,7 @@
     :plugins      [[lein-figwheel "0.5.13"]
                    [lein-doo "0.1.8"]
                    [lein-pdo "0.1.1"]]}
- 		:uberjar {:main rf-mater.server, :aot :all}
+     :uberjar {:main rf-mater.server, :aot :all}
     }
 
   :cljsbuild
