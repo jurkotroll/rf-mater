@@ -102,16 +102,43 @@
                       :align-items "center"}}
                   [ui/text-field {:hint-text "wpisz imię"
                                   :floating-label-text "pasażer 3"
-                                   :type "text"
-                                   :value @pas-name
-                                   :on-change #(reset! pas-name (-> % .-target .-value))
-                                  :on-save #(when (seq %)
-                                              (dispatch [:add-passenger %]))}]
+                                  :type "text"
+                                  :value @pas-name
+                                  :on-change #(reset! pas-name (-> % .-target .-value))
+                                  ; :on-save #(when (seq %)
+                                  ;             (re-frame/dispatch [:add-passenger %]))
+                                  :on-save (fn [args] (js/console.log args))
+                                  }]
                   [ui/floating-action-button {:mini true
                                               :primary true
                                               :on-click #(when (seq @pas-name)
-                                                             (dispatch [:add-passenger @pas-name]))}
+                                                             (re-frame/dispatch [:add-passenger @pas-name]))}
                     [ic/content-add]]])))
+
+(defn person-view [name status]
+  [ui/table-row
+		[ui/table-row-column name]
+		 [ui/table-row-column status]])
+
+(defn cards-with-passangers []
+ (let [driver @(re-frame/subscribe [:driver])
+       passengers @(re-frame/subscribe [:passengers])]
+          [ui/card-text
+	          [ui/table ;{:display-row-checkbox false}
+	             [ui/table-header {:display-select-all false
+	                              :adjust-for-checkbox false}
+	              [ui/table-row
+	                [ui/table-header-column "imię"]
+	                [ui/table-header-column "status"]]]
+	            [ui/table-body {:display-row-checkbox false}
+	              [ui/table-row
+	                [ui/table-row-column (get driver :name)]
+	                 [ui/table-row-column "kierowca"]]
+								(map-indexed
+                   (fn [idx person] [person-view (:name person)
+                                     (str "pasażer " (inc idx))])
+                  passengers)]]
+	           [passenger-entry]]))
 
 (defn car-card []
   (let []
@@ -139,34 +166,9 @@
               ]]
           ]
         [ui/divider]
-        [ui/card-text
-          [ui/table ;{:display-row-checkbox false}
-             [ui/table-header {:display-select-all false
-                              :adjust-for-checkbox false}
-              [ui/table-row
-                [ui/table-header-column "imię"]
-                [ui/table-header-column "status"]]]
-            [ui/table-body {:display-row-checkbox false}
-              [ui/table-row
-                [ui/table-row-column "Jurek"]
-                 [ui/table-row-column "kierowca"]
-              ]
-              [ui/table-row
-                [ui/table-row-column "Olek"]
-                 [ui/table-row-column "pasażer 1"]
-              ]
-              [ui/table-row
-                [ui/table-row-column "Magda"]
-                 [ui/table-row-column "pasażer 2"]
-              ]
-
-            ]
-
-          ]
-           [passenger-entry]
-
-        ]
+				[cards-with-passangers]
        ])))
+
 
 
 

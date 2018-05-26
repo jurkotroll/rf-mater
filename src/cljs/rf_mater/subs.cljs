@@ -10,3 +10,15 @@
  ::active-panel
  (fn [db _]
    (:active-panel db)))
+
+
+(re-frame/reg-sub
+ :driver
+ (fn [db _]
+   (get-in db [:auto :driver])))
+
+
+(re-frame/reg-sub
+ :passengers
+ (fn [db _]
+   (get-in db [:auto :passengers])))

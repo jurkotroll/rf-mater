@@ -12,6 +12,11 @@
  (fn [db [_ active-panel]]
    (assoc db :active-panel active-panel)))
 
-(reg-event-db
+(re-frame/reg-event-db
    :add-passenger
-  (fn [pas]))
+  (fn [db [_ pas-name]]
+   (update-in db [:auto :passengers]
+              #(conj % {:name pas-name}))))
+   ; (let [passengers (get-in db [:auto :passengers])
+   ;       passengers (conj passengers {:name pas-name})]
+   ;   (assoc-in db [:auto :passengers] passengers))))
