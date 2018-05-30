@@ -9,6 +9,4 @@
 (def default-db
   {:auto {:name "VW T4"
           :driver {:name "Jurek"}
-          :passengers [{:name "Zofia"}
-                       {:name "Olek"}
-                       {:name "Magda"}]}})
+          :passengers []}})

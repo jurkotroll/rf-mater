@@ -9,15 +9,18 @@
                  [compojure "1.5.0"]
                  [yogthos/config "0.8"]
                  [ring "1.4.0"]
+                 [ring/ring-json "0.4.0"]
                  [ring/ring-defaults "0.3.1"]
                  [lein-heroku "0.5.3"]
                  [cljsjs/react "16.3.0-0"]
                  [cljsjs/react-dom "16.3.0-0"]
-                 [cljs-react-material-ui "0.2.48"]]
+                 [cljs-react-material-ui "0.2.48"]
+                 [day8.re-frame/http-fx "0.1.6"]]
 
   :plugins [[lein-cljsbuild "1.1.5"]
             [lein-garden "0.2.8"]
-            [lein-less "1.7.5"]]
+            [lein-less "1.7.5"]
+            [lein-ring "0.12.4"]]
 
   :min-lein-version "2.5.3"
 
@@ -35,6 +38,9 @@
                      :stylesheet   rf-mater.css/screen
                      :compiler     {:output-to     "resources/public/css/screen.css"
                                     :pretty-print? true}}]}
+
+  :ring {:handler rf-mater.handler/handler}
+
   :heroku {:app-name "rf-mater"}
   :less {:source-paths ["less"]
          :target-path  "resources/public/css"}
