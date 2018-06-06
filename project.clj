@@ -57,7 +57,7 @@
   :profiles
   {:dev
    {:dependencies [[binaryage/devtools "0.9.4"]
-                   [day8.re-frame/re-frame-10x "0.2.0"]
+                   ;[day8.re-frame/re-frame-10x "0.2.0"]
                    [re-frisk "0.5.3"]]
 
     :plugins      [[lein-figwheel "0.5.13"]
@@ -77,7 +77,7 @@
                     :asset-path           "js/compiled/out"
                     :source-map-timestamp true
                     :preloads             [devtools.preload
-                                           day8.re-frame-10x.preload
+                                           ;day8.re-frame-10x.preload
                                            re-frisk.preload]
                     :closure-defines      {"re_frame.trace.trace_enabled_QMARK_" true}
                     :external-config      {:devtools/config {:features-to-install :all}}
