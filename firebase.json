@@ -1,0 +1,21 @@
+{
+    "hosting": {
+        "public": "dist",
+        "ignore": [
+            "**/*.json",
+            "**/*.edn",
+            "**/*.md",
+            "**/.*",
+            "**/node_modules/**",
+            "**/resources/**",
+            "**/src/**",
+            "**/test/**"
+        ],
+        "rewrites": [
+            {
+                "source": "**",
+                "destination": "/index.html"
+            }
+        ]
+    }
+}

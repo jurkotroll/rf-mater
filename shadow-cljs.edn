@@ -1,0 +1,29 @@
+{:nrepl {:port 9000}
+
+ :deps {:aliases [:client :dev]}
+
+ :builds
+ {:app {:target     :browser
+        :output-dir "resources/public/js"
+        :asset-path "/js"
+
+        :modules
+        {:main
+         {:entries [rf-mater.core]}}
+
+        :devtools
+        {:after-load rf-mater.core/render
+         :preloads   [devtools.preload
+                      shadow.cljs.devtools.client.hud
+                      day8.re-frame-10x.preload]
+         :http-root  "resources/public"
+         :http-port  3000}
+
+        :dev
+        {:compiler-options
+         {:closure-defines
+          {"re_frame.trace.trace_enabled_QMARK_"        true
+           "day8.re_frame.tracing.trace_enabled_QMARK_" true}}}
+
+        :release
+        {:compiler-options {:infer-externs :auto}}}}}
