@@ -5,13 +5,39 @@
             ;; [cljs-react-material-ui.core :refer [get-mui-theme color]]
             ;; [cljs-react-material-ui.reagent :as ui]
             ;; [cljs-react-material-ui.icons :as ic]
-            [reagent.core :as r]
             ;; [garden.core :refer [css]]
+            [reagent.core :as r]
+
+            ["@material-ui/core/AppBar" :default AppBar]
+            ["@material-ui/core/Button" :default Button]
+            ["@material-ui/core/IconButton" :default IconButton]
+            ["@material-ui/core/Toolbar" :default Toolbar]
+            ["@material-ui/core/Typography" :default Typography]
+            ["@material-ui/core/styles" :refer [MuiThemeProvider createMuiTheme]]
+            ["@material-ui/icons/Menu" :default MenuIcon]
             ))
 
-(defn main-panel []
-  [:div "Main panel"])
 
+(def theme (createMuiTheme #js {}))
+
+
+(defn main-panel []
+  [:> MuiThemeProvider
+   {:theme theme}
+   [:div
+    [:> AppBar
+     {:position "static"}
+     [:> Toolbar
+      [:> IconButton
+       {:color "inherit"}
+       [:> MenuIcon]]
+      [:> Typography
+       {:variant "title"
+        :color "inherit"}
+       "Dokąd?!"]
+      [:> Button
+       {:color "inherit"}
+       "Login"]]]]])
 
 
 ;; (defn app-bar []

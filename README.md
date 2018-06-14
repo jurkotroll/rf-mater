@@ -5,7 +5,7 @@
 To run the following commands faster, spin up a background shadow server:
 
 ```
-npm run shadow-start
+yarn shadow-start
 ```
 
 You only need to do this once for the shell session.
@@ -14,7 +14,7 @@ You only need to do this once for the shell session.
 ## Development Mode
 
 ```
-npm run dev
+yarn dev
 ```
 
 ## Production Build
@@ -22,13 +22,13 @@ npm run dev
 Stop the `dev` process, if running.
 
 ```
-npm run release
+yarn release
 ```
 
 Test release by running server:
 
 ```
-npm run serve
+yarn serve
 ```
 
 ## Deployment

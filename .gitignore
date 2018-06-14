@@ -11,4 +11,3 @@
 .firebaserc
 out
 .nrepl-*
-package-lock.json
