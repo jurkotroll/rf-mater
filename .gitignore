@@ -4,5 +4,12 @@
 /.env
 /pom.xml
 /.lein-*
+/.shadow-cljs
+/node_modules
 /resources/public/js/compiled
+.cpcache
+.firebaserc
 out
+.nrepl-*
+resources/public/js
+dist
