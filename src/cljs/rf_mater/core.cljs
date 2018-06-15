@@ -5,7 +5,8 @@
             [rf-mater.routes :as routes]
             [rf-mater.views :as views]
             [rf-mater.config :as config]
-            [day8.re-frame.http-fx]))
+            ;; [day8.re-frame.http-fx]
+            ))
 
 
 (defn dev-setup []
@@ -13,14 +14,14 @@
     (enable-console-print!)
     (println "dev mode")))
 
-(defn mount-root []
+(defn render []
   (re-frame/clear-subscription-cache!)
   (reagent/render [views/main-panel]
                   (.getElementById js/document "app")))
 
 (defn ^:export init []
-  (routes/app-routes)
-  (re-frame/dispatch-sync [::events/initialize-db])
-   (re-frame/dispatch [::events/fetch-data])
   (dev-setup)
-  (mount-root))
+  ;; (routes/app-routes)
+  (re-frame/dispatch-sync [::events/initialize-db])
+  ;; (re-frame/dispatch [::events/fetch-data])
+  (render))

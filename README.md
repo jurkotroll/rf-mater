@@ -1,86 +1,72 @@
 # rf-mater
 
-A [re-frame](https://github.com/Day8/re-frame) application designed to ... well, that part is up to you.
+## Installation
+
+```
+npm install -g yarn
+npm install -g firebase
+```
+
+## Shadow Server
+
+To run the following commands faster, spin up a background shadow server:
+
+```
+yarn shadow-start
+```
+
+You only need to do this once for the shell session. At the end of session you can stop with:
+
+```
+yarn shadow-stop
+```
+
 
 ## Development Mode
 
-### Compile css:
-
-Compile css file once.
-
 ```
-lein garden once
+yarn dev
 ```
 
-Automatically recompile css file on change.
-
-```
-lein garden auto
-```
-
-CSS also gets automatically built when running `lein build` and recompiled on change with `lein dev`.
-
-### Compile css:
-
-Compile css file once.
-
-```
-lein less once
-```
-
-Automatically recompile css file on change.
-
-```
-lein less auto
-```
-
-CSS also gets automatically built when running `lein build` and recompiled on change with `lein dev`.
-
-### Run application:
-
-```
-lein dev
-```
-
-Figwheel will automatically push cljs changes to the browser.
-
-Wait a bit, then browse to [http://localhost:3449](http://localhost:3449).
-
-### Run tests:
-
-```
-lein clean
-lein doo phantom test once
-```
-
-The above command assumes that you have [phantomjs](https://www.npmjs.com/package/phantomjs) installed. However, please note that [doo](https://github.com/bensu/doo) can be configured to run cljs.test in many other JS environments (chrome, ie, safari, opera, slimer, node, rhino, or nashorn).
+Server running at <http://localhost:3000>
 
 ## Production Build
 
-```
-lein clean
-lein uberjar
-```
-
-That should compile the clojurescript code first, and then create the standalone jar.
-
-When you run the jar you can set the port the ring server will use by setting the environment variable PORT.
-If it's not set, it will run on port 3000 by default.
-
-To deploy to heroku, first create your app:
+Stop the `dev` process, if running.
 
 ```
-heroku create
+yarn release
 ```
 
-Then deploy the application:
+Test release by running release server:
 
 ```
-git push heroku master
+yarn serve
 ```
 
-To compile clojurescript to javascript:
+Server running at <http://localhost:8080>
+
+## Deployment
+
+Setup firebase:
 
 ```
-lein build
+firebase login
+```
+
+Setup `.firebaserc`:
+
+```
+$ cat .firebaserc
+{
+  "projects": {
+    "default": "jurkodemo"
+  }
+}
+```
+
+Deploy:
+
+```
+firebase deploy
 ```
