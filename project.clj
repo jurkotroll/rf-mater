@@ -4,7 +4,7 @@
                  [reagent "0.7.0"]
                  [re-frame "0.10.5"]
                  [secretary "1.2.3"]
-                 [garden "1.3.2"]
+                 ;[garden "1.3.2"]
                  [ns-tracker "0.3.0"]
                  [compojure "1.5.0"]
                  [yogthos/config "0.8"]
@@ -18,9 +18,10 @@
                  [day8.re-frame/http-fx "0.1.6"]]
 
   :plugins [[lein-cljsbuild "1.1.5"]
-            [lein-garden "0.2.8"]
-            [lein-less "1.7.5"]
-            [lein-ring "0.12.4"]]
+            ;[lein-garden "0.2.8"]
+            ;[lein-less "1.7.5"]
+            [lein-ring "0.12.4"]
+            [lein-npm "0.6.2"]]
 
   :min-lein-version "2.5.3"
 
@@ -33,26 +34,28 @@
   :figwheel {:css-dirs ["resources/public/css"]
              :ring-handler rf-mater.handler/dev-handler}
 
-  :garden {:builds [{:id           "screen"
-                     :source-paths ["src/clj"]
-                     :stylesheet   rf-mater.css/screen
-                     :compiler     {:output-to     "resources/public/css/screen.css"
-                                    :pretty-print? true}}]}
+  ; :garden {:builds [{:id           "screen"
+  ;                    :source-paths ["src/clj"]
+  ;                    :stylesheet   rf-mater.css/screen
+  ;                    :compiler     {:output-to     "resources/public/css/screen.css"
+  ;                                   :pretty-print? true}}]}
 
   :ring {:handler rf-mater.handler/handler}
 
   :heroku {:app-name "rf-mater"}
-  :less {:source-paths ["less"]
-         :target-path  "resources/public/css"}
+  ; :less {:source-paths ["less"]
+  ;        :target-path  "resources/public/css"}
 
   :aliases {"dev" ["do" "clean"
                         ["pdo" ["figwheel" "dev"]
-                               ["less" "auto"]
-                               ["garden" "auto"]]]
+                               ;["less" "auto"]
+                               ;["garden" "auto"]
+                         ]]
             "build" ["do" "clean"
                           ["cljsbuild" "once" "min"]
-                          ["less" "once"]
-                          ["garden" "once"]]}
+                          ;["less" "once"]
+                          ;["garden" "once"]
+                     ]}
 
   :profiles
   {:dev
@@ -79,7 +82,10 @@
                     :preloads             [devtools.preload
                                            ;day8.re-frame-10x.preload
                                            re-frisk.preload]
-                    :closure-defines      {"re_frame.trace.trace_enabled_QMARK_" true}
+                    :closure-defines      {"re_frame.trace.trace_enabled_QMARK_" true
+                                           process.env/NODE_ENV "development"}
+                    :npm-deps {}
+                    :install-deps true
                     :external-config      {:devtools/config {:features-to-install :all}}
                     }}
 
@@ -106,5 +112,7 @@
 
   :uberjar-name "rf-mater.jar"
 
-  :prep-tasks [["cljsbuild" "once" "min"]["garden" "once"]["less" "once"] "compile"]
+  :prep-tasks [["cljsbuild" "once" "min"]
+               ;["garden" "once"]["less" "once"]
+               "compile"]
   )
