@@ -24,7 +24,7 @@
 (defn main-panel []
   [:> MuiThemeProvider
    {:theme theme}
-   [:div
+   [:div {:style {:padding "50px"}}
     [:> AppBar
      {:position "static"}
      [:> Toolbar

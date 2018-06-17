@@ -23,7 +23,7 @@
     },
     "scripts": {
         "clean": "shx rm -rf dist && shx rm -rf resources/public/js",
-        "dist:mkdir": "shx mkdir -p dist/{js,css,img}",
+        "dist:mkdir": "shx mkdir -p dist/js && shx mkdir -p dist/css && shx mkdir -p dist/img",
         "dist:js": "shadow-cljs release app && shx cp resources/public/js/main.js dist/js/main.js",
         "dist:html": "shx cp resources/public/index.html dist/",
         "dist:bust": "hashmark -r -c dist -l 6 '{css,js,img}/*.{js,css,jpg,png}' '{dir}/{name}-{hash}{ext}' | replaceinfiles -S -s 'dist/**/*.{css,html}' -d '{dir}/{base}'",
@@ -32,6 +32,7 @@
         "shadow-start": "shadow-cljs start",
         "shadow-stop": "shadow-cljs stop",
         "dev": "shadow-cljs watch app"
+				
     },
     "author": "",
     "license": "MIT"
