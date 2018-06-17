@@ -1,0 +1,39 @@
+{
+    "name": "rf-mater",
+    "version": "0.1.0",
+    "description": "",
+    "main": "",
+    "repository": "",
+    "directories": {},
+    "dependencies": {},
+    "devDependencies": {
+        "@material-ui/core": "1.2.1",
+        "@material-ui/icons": "1.1.0",
+        "create-react-class": "15.6.3",
+        "hashmark": "5.0.0",
+        "http-server": "0.11.1",
+        "intl-messageformat": "2.2.0",
+        "react": "16.4.1",
+        "react-dom": "16.4.1",
+        "react-flip-move": "3.0.2",
+        "react-highlight.js": "1.0.7",
+        "replaceinfiles": "1.1.4",
+        "shadow-cljs": "2.4.4",
+        "shx": "0.3.0"
+    },
+    "scripts": {
+        "clean": "shx rm -rf dist && shx rm -rf resources/public/js",
+        "dist:mkdir": "shx mkdir -p dist/js && shx mkdir -p dist/css && shx mkdir -p dist/img",
+        "dist:js": "shadow-cljs release app && shx cp resources/public/js/main.js dist/js/main.js",
+        "dist:html": "shx cp resources/public/index.html dist/",
+        "dist:bust": "hashmark -r -c dist -l 6 '{css,js,img}/*.{js,css,jpg,png}' '{dir}/{name}-{hash}{ext}' | replaceinfiles -S -s 'dist/**/*.{css,html}' -d '{dir}/{base}'",
+        "release": "npm run clean && npm run dist:mkdir && npm run dist:js && npm run dist:html && npm run dist:bust",
+        "serve": "http-server dist -p 8080",
+        "shadow-start": "shadow-cljs start",
+        "shadow-stop": "shadow-cljs stop",
+        "dev": "shadow-cljs watch app"
+				
+    },
+    "author": "",
+    "license": "MIT"
+}
