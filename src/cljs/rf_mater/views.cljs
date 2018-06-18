@@ -7,9 +7,13 @@
             ;; [cljs-react-material-ui.icons :as ic]
             ;; [garden.core :refer [css]]
             [reagent.core :as r]
-
+          ;;["" :default ]
             ["@material-ui/core/AppBar" :default AppBar]
             ["@material-ui/core/Button" :default Button]
+            ["@material-ui/core/Card" :default Card]
+            ["@material-ui/core/CardActions" :default CardActions]
+            ["@material-ui/core/CardContent" :default CardContent]
+            ["@material-ui/core/CardMedia" :default CardMedia]
             ["@material-ui/core/IconButton" :default IconButton]
             ["@material-ui/core/Toolbar" :default Toolbar]
             ["@material-ui/core/Typography" :default Typography]
@@ -20,24 +24,69 @@
 
 (def theme (createMuiTheme #js {}))
 
+(def styles {:root {:flex-grow "1"}
+             :flex {:flex "1"}
+             :menu-button {:margin-left "-12px"
+                           :margin-right "20px"}})
+
+(js/console.log (:menu-button styles))
 
 (defn main-panel []
-  [:> MuiThemeProvider
-   {:theme theme}
-   [:div {:style {:padding "50px"}}
-    [:> AppBar
-     {:position "static"}
-     [:> Toolbar
-      [:> IconButton
-       {:color "inherit"}
-       [:> MenuIcon]]
-      [:> Typography
-       {:variant "title"
-        :color "inherit"}
-       "Dokąd?!"]
-      [:> Button
-       {:color "inherit"}
-       "Login"]]]]])
+  [:> MuiThemeProvider {:theme theme}
+    [:div {:style (:root styles)}
+      [:> AppBar {:position "static"}
+        [:> Toolbar
+          [:> IconButton {:style (:menu-button styles)
+                          :color "inherit"
+                          :aria-label "Menu"}
+            [:> MenuIcon]]
+          [:> Typography {:variant "title"
+                          :color "inherit"
+                          :style (:flex styles)}
+            "Title"]
+          [:> Button {:color "inherit"}
+            "Login"]]
+       ]
+  ]
+
+
+    [:div {:class-name (:root styles)}
+      [:> AppBar {:position "static"
+                  :color "default"}
+        [:> Toolbar
+          [:> Typography {:variant "title"
+                          :color "inherit"}
+            "Title"
+            ]]]]
+
+
+
+    [:div {:style {:padding "5px"}}
+      [:> AppBar {:color "default"
+                  :position "static"}
+        [:> Toolbar
+
+           [:> IconButton {:color "inherit"}
+            [:> MenuIcon]]
+          [:div {:flex-grow "2"}
+            [:> Typography {:variant "headline"
+                          :align "center"
+                          :color "primary"}
+             "Razem Na Stok"]]
+          [:> Button {:color "inherit"}
+            "Login"]
+         ]]
+
+
+     [:> Card {:color "primary"}
+       [:> CardContent
+         [:div {:height "1000px"}
+          [:> Typography {:variant "title"
+                         :color "secondary"}
+           "Content"]]]
+         [:> CardMedia {:src "http://www.oldskoolman.de/bilder/plog-content/images/homepagebanner/senkrecht/banner-baumrinde.jpg"
+			                  :title "Content"}]
+      ]]])
 
 
 ;; (defn app-bar []
@@ -46,7 +95,8 @@
 ;;                  :showMenuIconButton false
 ;;                  :titleStyle {:color (color :lime200)
 ;;                               :textAlign :center
-;;                   }}]))
+;;                   }}
+;;]))
 
 ;; (defn jumbotron []
 ;;   (let []
