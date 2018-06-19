@@ -14,10 +14,20 @@
             ["@material-ui/core/CardActions" :default CardActions]
             ["@material-ui/core/CardContent" :default CardContent]
             ["@material-ui/core/CardMedia" :default CardMedia]
+            ["@material-ui/core/CardHeader" :default CardHeader]
+            ["@material-ui/core/Collapse" :default Collapse]
+            ["@material-ui/core/Avatar" :default Avatar]
+
+
             ["@material-ui/core/IconButton" :default IconButton]
             ["@material-ui/core/Toolbar" :default Toolbar]
             ["@material-ui/core/Typography" :default Typography]
             ["@material-ui/core/styles" :refer [MuiThemeProvider createMuiTheme]]
+
+            ["@material-ui/icons/Favorite" :default FavoriteIcon]
+            ["@material-ui/icons/Share" :default ShareIcon]
+            ["@material-ui/icons/ExpandMore" :default ExpandMoreIcon]
+            ["@material-ui/icons/MoreVert" :default MoreVertIcon]
             ["@material-ui/icons/Menu" :default MenuIcon]
             ))
 
@@ -27,87 +37,86 @@
 (def styles {:root {:flex-grow "1"}
              :flex {:flex "1"}
              :menu-button {:margin-left "-12px"
-                           :margin-right "20px"}})
+                           :margin-right "20px"}
+
+             :card {:width "400px"}
+             :media {:height "0px"
+                     :padding-top "56.25%"}
+             :actions {:display "flex"}
+             :expand {:margin-left "auto"
+                      ; :transform "rotate(0deg)"
+                      ; :transition
+                       }
+             :avatar {:backgroundcolor "red"}
+
+             })
 
 (js/console.log (:menu-button styles))
+
+
+
+
+
+(defn event-card []
+  [:> Card {:style (:card styles)}
+    [:> CardHeader {
+                    ;:avatar
+										;		[:> Avatar {:aria-label "Recipe"
+                    ;            :style (:avatar styles)}
+                    ;  "R"]
+                    ; :action
+                    ;   [:> IconButton
+                    ;     [:> MoreVertIcon]]
+                    :title "Shrimp and Chorizo Paella"
+                    :subheader "September 14, 2016"}]
+     [:> CardMedia {:style (:media styles)
+                    :image ""
+                    :title "Contemplative Reptile"}]
+     [:> CardContent
+       [:> Typography {:component "p"}
+         "This impressive paella is a perfect party dish and a fun meal to cook together
+ with your guests. Add 1 cup of frozen peas along with the mussels, if you like."]]
+     [:> CardActions {:style (:actions styles)
+                      :disable-action-spacing 0
+                      }
+        [:> IconButton {:aria-label "Add to favorites"}
+          [:> FavoriteIcon]]
+        [:> IconButton {:aria-label "Share"}
+          [:> ShareIcon]]
+        [:> IconButton {:aria-label "Show more"
+                        :style (:expand styles)
+                        ;:on-click
+                        ;:aria-expanded
+                        }
+          [:> ExpandMoreIcon]]]
+     [:> Collapse ]])
+
+(defn app-bar []
+        [:> AppBar {:position "static"}
+	        [:> Toolbar
+	          [:> IconButton {:style (:menu-button styles)
+	                          :color "inherit"
+	                          :aria-label "Menu"}
+	            [:> MenuIcon]]
+	          [:> Typography {:variant "title"
+	                          :color "inherit"
+	                          :style (:flex styles)}
+	            "Razem Na Stok"]
+	          [:> Button {:color "inherit"}
+	            "Login"]]
+	       ])
 
 (defn main-panel []
   [:> MuiThemeProvider {:theme theme}
     [:div {:style (:root styles)}
-      [:> AppBar {:position "static"}
-        [:> Toolbar
-          [:> IconButton {:style (:menu-button styles)
-                          :color "inherit"
-                          :aria-label "Menu"}
-            [:> MenuIcon]]
-          [:> Typography {:variant "title"
-                          :color "inherit"
-                          :style (:flex styles)}
-            "Title"]
-          [:> Button {:color "inherit"}
-            "Login"]]
-       ]
-  ]
-
-
-    [:div {:class-name (:root styles)}
-      [:> AppBar {:position "static"
-                  :color "default"}
-        [:> Toolbar
-          [:> Typography {:variant "title"
-                          :color "inherit"}
-            "Title"
-            ]]]]
+      [app-bar]
+    	[event-card]
+]])
 
 
 
-    [:div {:style {:padding "5px"}}
-      [:> AppBar {:color "default"
-                  :position "static"}
-        [:> Toolbar
-
-           [:> IconButton {:color "inherit"}
-            [:> MenuIcon]]
-          [:div {:flex-grow "2"}
-            [:> Typography {:variant "headline"
-                          :align "center"
-                          :color "primary"}
-             "Razem Na Stok"]]
-          [:> Button {:color "inherit"}
-            "Login"]
-         ]]
 
 
-     [:> Card {:color "primary"}
-       [:> CardContent
-         [:div {:height "1000px"}
-          [:> Typography {:variant "title"
-                         :color "secondary"}
-           "Content"]]]
-         [:> CardMedia {:src "http://www.oldskoolman.de/bilder/plog-content/images/homepagebanner/senkrecht/banner-baumrinde.jpg"
-			                  :title "Content"}]
-      ]]])
-
-
-;; (defn app-bar []
-;;   (let []
-;;     [ui/app-bar {:title "Razem Na Stok"
-;;                  :showMenuIconButton false
-;;                  :titleStyle {:color (color :lime200)
-;;                               :textAlign :center
-;;                   }}
-;;]))
-
-;; (defn jumbotron []
-;;   (let []
-;;     [ui/paper {:style {:height "200px"
-;;                        :width "auto"
-;;                        ;:max-width "40%"
-;;                        :margin "10px 0px"
-;;                        :textAlign "center"
-;;                        :display "flex"
-;;                       }
-;;                :zDepth "1"}]))
 
 ;; (defn destination-card []
 ;;   (let []
