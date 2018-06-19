@@ -12,4 +12,5 @@
 (def default-db
   {:auto {:name "VW T4"
           :driver {:name "Jurek"}
-          :passengers []}})
+          :passengers []}
+   :name "re-frame"})

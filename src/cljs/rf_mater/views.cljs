@@ -22,22 +22,25 @@
 
 
 (defn main-panel []
-  [:> MuiThemeProvider
-   {:theme theme}
-   [:div {:style {:padding "50px"}}
-    [:> AppBar
-     {:position "static"}
-     [:> Toolbar
-      [:> IconButton
-       {:color "inherit"}
-       [:> MenuIcon]]
-      [:> Typography
-       {:variant "title"
-        :color "inherit"}
-       "Dokąd?!"]
-      [:> Button
-       {:color "inherit"}
-       "Login"]]]]])
+   [:div "This is the About Page."
+    [:div [:a {:href "#/"} "go to Home Page"]]]
+  ; [:> MuiThemeProvider
+  ;  {:theme theme}
+  ;  [:div {:style {:padding "50px"}}
+  ;   [:> AppBar
+  ;    {:position "static"}
+  ;    [:> Toolbar
+  ;     [:> IconButton
+  ;      {:color "inherit"}
+  ;      [:> MenuIcon]]
+  ;     [:> Typography
+  ;      {:variant "title"
+  ;       :color "inherit"}
+  ;      "Dokąd?!"]
+  ;     [:> Button
+  ;      {:color "inherit"}
+  ;      "Login"]]]]]
+  )
 
 
 ;; (defn app-bar []
