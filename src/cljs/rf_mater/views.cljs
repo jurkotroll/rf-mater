@@ -38,8 +38,12 @@
              :flex {:flex "1"}
              :menu-button {:margin-left "-12px"
                            :margin-right "20px"}
-
-             :card {:width "400px"}
+             :cont-center {:display "flex"
+					                 :justify-content "center"
+					                 :width "100%"}
+             :card {:width "80%"
+                    :margin-top "20px"
+                    }
              :media {:height "0px"
                      :padding-top "56.25%"}
              :actions {:display "flex"}
@@ -58,7 +62,8 @@
 
 
 (defn event-card []
-  [:> Card {:style (:card styles)}
+  [:div {:style (:cont-center styles)}
+   [:> Card {:style (:card styles)}
     [:> CardHeader {
                     ;:avatar
 										;		[:> Avatar {:aria-label "Recipe"
@@ -69,9 +74,9 @@
                     ;     [:> MoreVertIcon]]
                     :title "Shrimp and Chorizo Paella"
                     :subheader "September 14, 2016"}]
-     [:> CardMedia {:style (:media styles)
-                    :image ""
-                    :title "Contemplative Reptile"}]
+     ; [:> CardMedia {:style (:media styles)
+     ;                :image ""
+     ;                :title "Contemplative Reptile"}]
      [:> CardContent
        [:> Typography {:component "p"}
          "This impressive paella is a perfect party dish and a fun meal to cook together
@@ -89,7 +94,29 @@
                         ;:aria-expanded
                         }
           [:> ExpandMoreIcon]]]
-     [:> Collapse ]])
+     [:> Collapse {:in 1}
+       [:> CardContent
+         [:> Typography {:paragraph 1 :variant "body2"}
+           "Method:"]
+         [:> Typography {:paragraph 1}
+           "Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside
+ for 10 minutes."]
+         [:> Typography {:paragraph 1}
+           "Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
+                heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
+                browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving
+                chicken and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion,
+                salt and pepper, and cook, stirring often until thickened and fragrant, about 10
+                minutes. Add saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil."]
+         [:> Typography {:paragraph 1}
+           "Add rice and stir very gently to distribute. Top with artichokes and peppers, and
+                cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes.
+                Reduce heat to medium-low, add reserved shrimp and mussels, tucking them down into
+                the rice, and cook again without stirring, until mussels have opened and rice is
+                just tender, 5 to 7 minutes more. (Discard any mussels that don’t open.)"]
+         [:> Typography
+           "Set aside off of the heat to let rest for 10 minutes, and then serve."]
+        ]]]])
 
 (defn app-bar []
         [:> AppBar {:position "static"}
