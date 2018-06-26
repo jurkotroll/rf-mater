@@ -8,16 +8,26 @@
             ;; [garden.core :refer [css]]
             [reagent.core :as r]
           ;;["" :default ]
+            ;
             ["@material-ui/core/AppBar" :default AppBar]
+            ["@material-ui/core/Avatar" :default Avatar]
+
             ["@material-ui/core/Button" :default Button]
+
             ["@material-ui/core/Card" :default Card]
             ["@material-ui/core/CardActions" :default CardActions]
             ["@material-ui/core/CardContent" :default CardContent]
             ["@material-ui/core/CardMedia" :default CardMedia]
             ["@material-ui/core/CardHeader" :default CardHeader]
             ["@material-ui/core/Collapse" :default Collapse]
-            ["@material-ui/core/Avatar" :default Avatar]
 
+            ["@material-ui/core/Divider" :default Divider]
+
+            ["@material-ui/core/Grid" :default Grid]
+
+            ["@material-ui/core/Hidden" :default Hidden]
+
+            ["@material-ui/core/Paper" :default Paper]
 
             ["@material-ui/core/IconButton" :default IconButton]
             ["@material-ui/core/Toolbar" :default Toolbar]
@@ -29,19 +39,36 @@
             ["@material-ui/icons/ExpandMore" :default ExpandMoreIcon]
             ["@material-ui/icons/MoreVert" :default MoreVertIcon]
             ["@material-ui/icons/Menu" :default MenuIcon]
+            ["@material-ui/icons/HelpOutline" :default HelpOutlineIcon]
             ))
 
 
 (def theme (createMuiTheme #js {}))
+(defn set-new-font [] (set! (-> theme .-typography .-fontFamily)
+      "'-apple-system', 'BlinkMacSystemFont', '\"Segoe UI\"', 'Roboto',  '\"Helvetica Neue\"', 'Arial', 'sans-serif', '\"Apple Color Emoji\"', '\"Segoe UI Emoji\"', '\"Segoe UI Symbol\"',"
+      ))
+(set-new-font)
+(set! (-> theme .-typography .-fontSize) 24)
+(set! (-> theme .-typography .-htmlFontSize) 14)
+;(js/console.log (-> theme .-typography))
 
-(def styles {:root {:flex-grow "1"}
+;
+; (enable-console-print!)
+; (def utest-js #js {})
+; (println (.-typography js/utest-js))
+
+;(def clj-theme (js->clj theme))
+;(def color )
+
+(def styles {:root {:flex-grow "1"
+                    :margin-bottom "20px"}
              :flex {:flex "1"}
              :menu-button {:margin-left "-12px"
                            :margin-right "20px"}
              :cont-center {:display "flex"
 					                 :justify-content "center"
 					                 :width "100%"}
-             :card {:width "80%"
+             :card {:width "99%"
                     :margin-top "20px"
                     }
              :media {:height "0px"
@@ -51,38 +78,200 @@
                       ; :transform "rotate(0deg)"
                       ; :transition
                        }
-             :avatar {:backgroundcolor "red"}
+             :avatar {:background-color "red"}
+             :paper {;:height "200px"
+                     ;:width "100%"
+                     ;:min-width "200px"
+                     ;:flex-basis "0"
+                     ;:flex-grow "1"
+                     ;:background-color "red"
+                     :text-align "left"
+                     :padding (* 2 (-> theme .-spacing .-unit))
+                     :color (-> theme .-palette .-text .-secondary)
+                     :background-color (-> theme .-palette .-primary .-light)
+                     }
+             :contein-temp {;:background-color (-> theme .-palette .-primary .-light)
+                            :height "100px"
+                            :width "100%"
+                            }
 
              })
 
-(js/console.log (:menu-button styles))
-
-
-
-
+(defn info-block-main []
+  (let []
+    [:> Grid {:container true
+              :spacing 8
+              :style {:display "flex" :justify-content "space-between"}} ;;main information block: when&where
+			[:> Grid {:item true :xs 12 :sm 6 :md 4
+                :style {:padding "10px 0px 10px 20px"}} ;; information  when?
+				[:> Typography {:color "textSecondary" :variant "title" :align "left" :gutterBottom true} "kiedy?"]
+				[:> Typography {:color "primary" :variant "headline"} "25-01-2018"]
+				[:> Typography {:color "primary" :variant "subheading"} "poniedziałek"]
+				[:> Typography {:color "secondary" :variant "subheading"} "za 6 d."]]
+			[:> Hidden {:xlDown true}]
+			[:> Grid {:item true :xs 12 :sm 6 :md 4
+                :style {:display "flex"
+	 										  :flex-direction "column"
+	 										  :justify-content "flex-start"
+	 										  :padding "10px 20px 10px 0px"}} ;; information  where?
+				[:> Typography {:color "textSecondary" :variant "title" :align "right" :gutterBottom true} "dokąd?"]
+				[:> Typography {:color "primary" :variant "display1" :align "right"  :style {:flex-grow 2}} "Jańskie Łaźnie"]
+				[:> Typography {:variant "button" :align "right" :style {:color (-> theme .-palette .-text .-primary)}}
+          [:a {:href ""} "mapa"]]
+			 ]]))
 
 (defn event-card []
   [:div {:style (:cont-center styles)}
    [:> Card {:style (:card styles)}
-    [:> CardHeader {
-                    ;:avatar
-										;		[:> Avatar {:aria-label "Recipe"
-                    ;            :style (:avatar styles)}
-                    ;  "R"]
-                    ; :action
-                    ;   [:> IconButton
-                    ;     [:> MoreVertIcon]]
-                    :title "Shrimp and Chorizo Paella"
-                    :subheader "September 14, 2016"}]
-     ; [:> CardMedia {:style (:media styles)
-     ;                :image ""
-     ;                :title "Contemplative Reptile"}]
+     ; [:> CardHeader {
+     ;                :avatar (r/as-element
+     ;                         [:> Avatar
+     ;                          {:aria-label "Recipe" :style (:avatar styles)} "J"])
+     ;                :action (r/as-element
+     ;                         [:> IconButton
+     ;                          [:> MoreVertIcon]])
+     ;                :title "Shrimp and Chorizo Paella"
+     ;                :subheader "September 14, 2016"}]
      [:> CardContent
+       [:div {:style (:root styles)}
+			   [:> Grid {:container true :spacing 16}
+           [info-block-main]
+           [:> Divider { :light false  :style {:width "100%" :margin "10px 0px 20px 0px"}}]
+
+           (let [loc-grids {:el-01 {:xs 6 :sm 2 :md 2}
+                            :el-02 {:xs 5 :sm 1 :md 1}
+                            :el-03 {:xs 1 :sm 1 :md 1 :align "center"}
+                            :el-04 {:xs 5 :sm 1 :md 1}
+                            :el-05 {:xs 12 :sm 6 :md 6}}
+                 text-format {:form-01 {:color "default" :variant "body2" :style {:padding-left "10px"}}
+                              :form-02 {:color "primary" :variant "subheading"}
+                              :form-03 {:color "default" :variant "body2" :style {:padding-left "10px"}}}
+                 conten-format {:cont-form {:container true :spacing 8 :style {:margin-bottom "10px"}}}]
+            [:> Grid {:container true} ;; second information block
+              [:> Grid {:container true}
+         		    [:> Grid (conj {} (:cont-form conten-format));; info about time and place of start
+                  [:> Grid (conj {:item true} (:el-01 loc-grids))
+                    [:> Typography (conj {} (:form-01 text-format)) "wyjazd"]]
+
+                  [:> Grid (conj {:item true} (:el-02 loc-grids))
+                    [:> Typography (conj {} (:form-02 text-format)) "6:00"]]
+
+                  [:> Grid (conj {:item true} (:el-03 loc-grids))
+                    [:> HelpOutlineIcon]]
+                  [:> Grid (conj {:item true} (:el-04 loc-grids))]
+                  [:> Grid (conj {:item true} (:el-05 loc-grids))
+                    [:> Typography (conj {} (:form-03 text-format))  "McD Factory (Wrocław) "
+                     [:a {:href ""} "mapa"]]]]
+
+           		  [:> Grid (conj {} (:cont-form conten-format)) ;; info about time and place of return
+                  [:> Grid (conj {:item true} (:el-01 loc-grids))
+                    [:> Typography (conj {} (:form-01 text-format)) "powrot"]]
+
+                  [:> Grid (conj {:item true} (:el-02 loc-grids))
+                    [:> Typography (conj {} (:form-02 text-format)) "20:00"]]
+
+                  [:> Grid (conj {:item true} (:el-03 loc-grids))
+                    [:> HelpOutlineIcon]]
+                  [:> Grid (conj {:item true} (:el-04 loc-grids))]
+                  [:> Grid (conj {:item true} (:el-05 loc-grids))
+                    [:> Typography (conj {} (:form-03 text-format)) "McD Factory (Wrocław) "
+                      [:a {:href ""} "mapa"]]]]
+
+           		  [:> Grid (conj {} (:cont-form conten-format)) ;; info about road time&distance
+                  [:> Grid (conj {:item true} (:el-01 loc-grids))
+                     [:> Typography (conj {} (:form-01 text-format)) "w drodze"]]
+
+                  [:> Grid (conj {:item true} (:el-02 loc-grids))
+                     [:> Typography (conj {} (:form-02 text-format)) "2,5 h"]]
+
+                  [:> Grid (conj {:item true} (:el-03 loc-grids))
+                     [:> HelpOutlineIcon]]
+                  [:> Grid (conj {:item true} (:el-04 loc-grids))]
+                  [:> Grid (conj {:item true} (:el-05 loc-grids))
+                     [:> Typography (conj {} (:form-03 text-format)) "odległoć 150 km" ]]]
+
+         		    [:> Grid (conj {} (:cont-form conten-format)) ;; info about staeing on slop
+                  [:> Grid (conj {:item true} (:el-01 loc-grids))
+                    [:> Typography (conj {:style {:padding-left "10px"}} (:form-01 text-format)) "na stoku"]]
+
+                  [:> Grid (conj {:item true} (:el-02 loc-grids))
+                    [:> Typography (conj {} (:form-02 text-format)) "8 h"]]
+
+                  [:> Grid (conj {:item true} (:el-03 loc-grids))
+                    [:> HelpOutlineIcon]]]
+               ]
+              [:> Hidden {:lg-up true}
+                [:> Divider { :light false :style {:width "100%" :margin "20px 0px 20px 0px"}}]]
+              [:> Grid {:item true :xs 12 :lg 4}
+                [:div {:style (:contein-temp styles)} "osoba kontaktowa"]]])
+
+           [:> Divider { :light false  :style {:width "100%" :margin "20px 0px 20px 0px"}}]
+
+           [:> Grid {:container true}
+         		 [:> Grid {:item true :xs 12 :lg 5}
+               [:div {:style (:contein-temp styles)} "osoba kontaktowa"]]]
+
+           [:> Divider { :light false  :style {:width "100%" :margin "20px 0px 20px 0px"}}]
+
+			     [:> Grid {:container true}
+         		 [:> Grid {:item true :xs 12 :md 6}
+               [:div {:style (:contein-temp styles)} "opis samochod"]]
+             [:> Grid {:item true :xs 12 :md 6}
+               [:div {:style (:contein-temp styles)} "foto somochod"]]]
+
+           [:> Divider { :light false  :style {:width "100%" :margin "20px 0px 20px 0px"}}]
+
+           [:> Grid {:container true} ;; list of passengers information block
+         		 [:> Grid {:container true :spacing 0 :style {}} ;; info about Jacek
+               [:> Grid {:item true :xs 12 :sm 6 :md 3}
+                 [:div {:style (:contein-temp styles)} "Jacek"]]
+               [:> Grid {:item true :xs 12 :sm 6 :md 3}
+                 [:div {:style (:contein-temp styles)} "kierowca"]]
+               [:> Grid {:item true :xs 12 :sm 12 :md 6}
+                 [:div {:style (:contein-temp styles)} "potwierdzono"]]]
+             [:> Divider { :light false :inset true :style {:width "100%"}}]
+
+         		 [:> Grid {:container true :spacing 0 :style {}} ;; info about Zofia
+               [:> Grid { :item true :xs 12 :sm 6 :md 3 :style {:display "flex" :flex-direction "row"}}
+                 [:> Avatar "Z"]
+                 [:div {:style (:contein-temp styles)} "Zofia"]]
+               [:> Grid {:item true :xs 12 :sm 6 :md 3}
+                 [:div {:style (:contein-temp styles)} "pasażer"]]
+               [:> Grid {:item true :xs 12 :sm 12 :md 6}
+                 [:div {:style (:contein-temp styles)} "potwierdzono"]]]
+             [:> Divider { :light false :inset true :style {:width "100%"}}]
+
+         		 [:> Grid {:container true :spacing 0 :style {}} ;; info about Hania
+               [:> Grid {:item true :xs 12 :sm 6 :md 3}
+                 [:div {:style (:contein-temp styles)} "Hania"]]
+               [:> Grid {:item true :xs 12 :sm 6 :md 3}
+                 [:div {:style (:contein-temp styles)} "pasażer"]]
+               [:> Grid {:item true :xs 12 :sm 12 :md 6}
+                 [:div {:style (:contein-temp styles)} "nie potwierdzono"]]]
+             [:> Divider { :light false :inset true :style {:width "100%"}}]
+         		 [:> Grid {:container true :spacing 0 :style {}} ;; info about Olek
+               [:> Grid {:item true :xs 12 :sm 6 :md 3}
+                 [:div {:style (:contein-temp styles)} "Olek"]]
+               [:> Grid {:item true :xs 12 :sm 6 :md 3}
+                 [:div {:style (:contein-temp styles)} "pasażer"]]
+               [:> Grid {:item true :xs 12 :sm 12 :md 6}
+                 [:div {:style (:contein-temp styles)} "zaproszono"]]]
+             [:> Divider { :light false :inset true :style {:width "100%"}}]
+
+             [:> Grid {:container true :spacing 0 :style {}} ;; input fild new-passenger
+               [:> Grid {:item true :xs 12}
+                 [:div {:style (:contein-temp styles)} "dodawanie pasażera"]]]
+            ]]]
+
+
+
+
+
        [:> Typography {:component "p"}
          "This impressive paella is a perfect party dish and a fun meal to cook together
  with your guests. Add 1 cup of frozen peas along with the mussels, if you like."]]
      [:> CardActions {:style (:actions styles)
-                      :disable-action-spacing 0
+                      :disable-action-spacing false
                       }
         [:> IconButton {:aria-label "Add to favorites"}
           [:> FavoriteIcon]]
@@ -94,21 +283,25 @@
                         ;:aria-expanded
                         }
           [:> ExpandMoreIcon]]]
-     [:> Collapse {:in 1}
+     [:> Collapse {:in true}
        [:> CardContent
-         [:> Typography {:paragraph 1 :variant "body2"}
+         [:> Typography {;:paragraph ""
+                         :variant "body2"}
            "Method:"]
-         [:> Typography {:paragraph 1}
+         [:> Typography {;:paragraph true
+                         }
            "Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside
  for 10 minutes."]
-         [:> Typography {:paragraph 1}
+         [:> Typography {;:paragraph true
+                         }
            "Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
                 heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
                 browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving
                 chicken and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion,
                 salt and pepper, and cook, stirring often until thickened and fragrant, about 10
                 minutes. Add saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil."]
-         [:> Typography {:paragraph 1}
+         [:> Typography {;:paragraph true
+                         }
            "Add rice and stir very gently to distribute. Top with artichokes and peppers, and
                 cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes.
                 Reduce heat to medium-low, add reserved shrimp and mussels, tucking them down into
@@ -116,7 +309,8 @@
                 just tender, 5 to 7 minutes more. (Discard any mussels that don’t open.)"]
          [:> Typography
            "Set aside off of the heat to let rest for 10 minutes, and then serve."]
-        ]]]])
+        ]]
+    ]])
 
 (defn app-bar []
         [:> AppBar {:position "static"}
@@ -136,8 +330,10 @@
 (defn main-panel []
   [:> MuiThemeProvider {:theme theme}
     [:div {:style (:root styles)}
+
       [app-bar]
     	[event-card]
+
 ]])
 
 
