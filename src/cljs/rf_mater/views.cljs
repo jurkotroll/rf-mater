@@ -42,23 +42,17 @@
             ["@material-ui/icons/HelpOutline" :default HelpOutlineIcon]
             ))
 
-
+;;
 (def theme (createMuiTheme #js {}))
-(defn set-new-font [] (set! (-> theme .-typography .-fontFamily)
-      "'-apple-system', 'BlinkMacSystemFont', '\"Segoe UI\"', 'Roboto',  '\"Helvetica Neue\"', 'Arial', 'sans-serif', '\"Apple Color Emoji\"', '\"Segoe UI Emoji\"', '\"Segoe UI Symbol\"',"
-      ))
-(set-new-font)
+(def set-new-font
+      "\"-apple-system\", \"BlinkMacSystemFont\", \"Segoe UI\",\"Roboto\",  \"Helvetica Neue\", \"Arial\", \"sans-serif\", \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\""
+      )
 (set! (-> theme .-typography .-fontSize) 24)
-(set! (-> theme .-typography .-htmlFontSize) 14)
-;(js/console.log (-> theme .-typography))
-
-;
-; (enable-console-print!)
-; (def utest-js #js {})
-; (println (.-typography js/utest-js))
-
-;(def clj-theme (js->clj theme))
-;(def color )
+(set! (-> theme .-typography .-body2 .-fontSize) "1rem")
+(set! (-> theme .-typography .-body1 .-fontSize) "1rem")
+(set! (-> theme .-typography .-body2 .-fontFamily) set-new-font)
+(set! (-> theme .-typography .-body1 .-fontFamily) set-new-font)
+(defn print-typo [] (js/console.log (-> theme .-typography)))
 
 (def styles {:root {:flex-grow "1"
                     :margin-bottom "20px"}
@@ -69,7 +63,7 @@
 					                 :justify-content "center"
 					                 :width "100%"}
              :card {:width "99%"
-                    :margin-top "20px"
+                    :margin-top "10px"
                     }
              :media {:height "0px"
                      :padding-top "56.25%"}
@@ -120,90 +114,81 @@
           [:a {:href ""} "mapa"]]
 			 ]]))
 
+(defn info-block-about []
+  (let [
+        loc-grids {:el-01 {:xs 6 :sm 2 :md 2 :lg 1}
+                   :el-02 {:xs 5 :sm 1 :md 1 :lg 1}
+                   :el-03 {:xs 1 :sm 1 :md 1 :lg 1 :align "center"}
+                   :el-04 {:xs 0 :sm 1 :md 1 :lg 1}
+                   :el-05 {:xs 12 :sm 6 :md 4 :lg 2}}
+        text-format {:form-01 {:color "default" :variant "body2" :style {:padding-left "10px"}}
+                     :form-02 {:color "primary" :variant "subheading"}
+                     :form-03 {:color "default" :variant "body1" :style {:padding-left "10px"}}}
+        conten-format {:cont-form {:container true :spacing 8 :style {:margin-bottom "20px"}}}]
+               [:> Grid {:container true} ;; second information block
+                [:> Grid (conj {} (:cont-form conten-format));; info about time and place of start
+                   [:> Grid (conj {:item true} (:el-01 loc-grids))
+                     [:> Typography (conj {} (:form-01 text-format)) "wyjazd"]]
+
+                   [:> Grid (conj {:item true} (:el-02 loc-grids))
+                     [:> Typography (conj {} (:form-02 text-format)) "6:00"]]
+
+                   [:> Grid (conj {:item true} (:el-03 loc-grids))
+                     [:> HelpOutlineIcon]]
+                   [:> Grid (conj {:item true} (:el-04 loc-grids))]
+                   [:> Grid (conj {:item true} (:el-05 loc-grids))
+                     [:> Typography (conj {} (:form-03 text-format))  "McD Factory (Wrocław) "
+                      [:a {:href ""} "mapa"]]]]
+
+            		 [:> Grid (conj {} (:cont-form conten-format)) ;; info about time and place of return
+                   [:> Grid (conj {:item true} (:el-01 loc-grids))
+                     [:> Typography (conj {} (:form-01 text-format)) "powrot"]]
+
+                   [:> Grid (conj {:item true} (:el-02 loc-grids))
+                     [:> Typography (conj {} (:form-02 text-format)) "20:00"]]
+
+                   [:> Grid (conj {:item true} (:el-03 loc-grids))
+                     [:> HelpOutlineIcon]]
+                   [:> Grid (conj {:item true} (:el-04 loc-grids))]
+                   [:> Grid (conj {:item true} (:el-05 loc-grids))
+                     [:> Typography (conj {} (:form-03 text-format)) "McD Factory (Wrocław) "
+                       [:a {:href ""} "mapa"]]]]
+
+            		 [:> Grid (conj {} (:cont-form conten-format)) ;; info about road time&distance
+                   [:> Grid (conj {:item true} (:el-01 loc-grids))
+                      [:> Typography (conj {} (:form-01 text-format)) "w drodze"]]
+
+                   [:> Grid (conj {:item true} (:el-02 loc-grids))
+                      [:> Typography (conj {} (:form-02 text-format)) "2,5 h"]]
+
+                   [:> Grid (conj {:item true} (:el-03 loc-grids))
+                      [:> HelpOutlineIcon]]
+                   [:> Grid (conj {:item true} (:el-04 loc-grids))]
+                   [:> Grid (conj {:item true} (:el-05 loc-grids))
+                      [:> Typography (conj {} (:form-03 text-format)) "odległoć 150 km" ]]]
+
+          		   [:> Grid (conj {} (:cont-form conten-format)) ;; info about staeing on slop
+                   [:> Grid (conj {:item true} (:el-01 loc-grids))
+                     [:> Typography (conj {:style {:padding-left "10px"}} (:form-01 text-format)) "na stoku"]]
+
+                   [:> Grid (conj {:item true} (:el-02 loc-grids))
+                     [:> Typography (conj {} (:form-02 text-format)) "8 h"]]
+
+                   [:> Grid (conj {:item true} (:el-03 loc-grids))
+                     [:> HelpOutlineIcon]]]
+               ]
+              ))
+
 (defn event-card []
   [:div {:style (:cont-center styles)}
    [:> Card {:style (:card styles)}
-     ; [:> CardHeader {
-     ;                :avatar (r/as-element
-     ;                         [:> Avatar
-     ;                          {:aria-label "Recipe" :style (:avatar styles)} "J"])
-     ;                :action (r/as-element
-     ;                         [:> IconButton
-     ;                          [:> MoreVertIcon]])
-     ;                :title "Shrimp and Chorizo Paella"
-     ;                :subheader "September 14, 2016"}]
      [:> CardContent
        [:div {:style (:root styles)}
 			   [:> Grid {:container true :spacing 16}
            [info-block-main]
            [:> Divider { :light false  :style {:width "100%" :margin "10px 0px 20px 0px"}}]
+           [info-block-about]
 
-           (let [loc-grids {:el-01 {:xs 6 :sm 2 :md 2}
-                            :el-02 {:xs 5 :sm 1 :md 1}
-                            :el-03 {:xs 1 :sm 1 :md 1 :align "center"}
-                            :el-04 {:xs 5 :sm 1 :md 1}
-                            :el-05 {:xs 12 :sm 6 :md 6}}
-                 text-format {:form-01 {:color "default" :variant "body2" :style {:padding-left "10px"}}
-                              :form-02 {:color "primary" :variant "subheading"}
-                              :form-03 {:color "default" :variant "body2" :style {:padding-left "10px"}}}
-                 conten-format {:cont-form {:container true :spacing 8 :style {:margin-bottom "10px"}}}]
-            [:> Grid {:container true} ;; second information block
-              [:> Grid {:container true}
-         		    [:> Grid (conj {} (:cont-form conten-format));; info about time and place of start
-                  [:> Grid (conj {:item true} (:el-01 loc-grids))
-                    [:> Typography (conj {} (:form-01 text-format)) "wyjazd"]]
-
-                  [:> Grid (conj {:item true} (:el-02 loc-grids))
-                    [:> Typography (conj {} (:form-02 text-format)) "6:00"]]
-
-                  [:> Grid (conj {:item true} (:el-03 loc-grids))
-                    [:> HelpOutlineIcon]]
-                  [:> Grid (conj {:item true} (:el-04 loc-grids))]
-                  [:> Grid (conj {:item true} (:el-05 loc-grids))
-                    [:> Typography (conj {} (:form-03 text-format))  "McD Factory (Wrocław) "
-                     [:a {:href ""} "mapa"]]]]
-
-           		  [:> Grid (conj {} (:cont-form conten-format)) ;; info about time and place of return
-                  [:> Grid (conj {:item true} (:el-01 loc-grids))
-                    [:> Typography (conj {} (:form-01 text-format)) "powrot"]]
-
-                  [:> Grid (conj {:item true} (:el-02 loc-grids))
-                    [:> Typography (conj {} (:form-02 text-format)) "20:00"]]
-
-                  [:> Grid (conj {:item true} (:el-03 loc-grids))
-                    [:> HelpOutlineIcon]]
-                  [:> Grid (conj {:item true} (:el-04 loc-grids))]
-                  [:> Grid (conj {:item true} (:el-05 loc-grids))
-                    [:> Typography (conj {} (:form-03 text-format)) "McD Factory (Wrocław) "
-                      [:a {:href ""} "mapa"]]]]
-
-           		  [:> Grid (conj {} (:cont-form conten-format)) ;; info about road time&distance
-                  [:> Grid (conj {:item true} (:el-01 loc-grids))
-                     [:> Typography (conj {} (:form-01 text-format)) "w drodze"]]
-
-                  [:> Grid (conj {:item true} (:el-02 loc-grids))
-                     [:> Typography (conj {} (:form-02 text-format)) "2,5 h"]]
-
-                  [:> Grid (conj {:item true} (:el-03 loc-grids))
-                     [:> HelpOutlineIcon]]
-                  [:> Grid (conj {:item true} (:el-04 loc-grids))]
-                  [:> Grid (conj {:item true} (:el-05 loc-grids))
-                     [:> Typography (conj {} (:form-03 text-format)) "odległoć 150 km" ]]]
-
-         		    [:> Grid (conj {} (:cont-form conten-format)) ;; info about staeing on slop
-                  [:> Grid (conj {:item true} (:el-01 loc-grids))
-                    [:> Typography (conj {:style {:padding-left "10px"}} (:form-01 text-format)) "na stoku"]]
-
-                  [:> Grid (conj {:item true} (:el-02 loc-grids))
-                    [:> Typography (conj {} (:form-02 text-format)) "8 h"]]
-
-                  [:> Grid (conj {:item true} (:el-03 loc-grids))
-                    [:> HelpOutlineIcon]]]
-               ]
-              [:> Hidden {:lg-up true}
-                [:> Divider { :light false :style {:width "100%" :margin "20px 0px 20px 0px"}}]]
-              [:> Grid {:item true :xs 12 :lg 4}
-                [:div {:style (:contein-temp styles)} "osoba kontaktowa"]]])
 
            [:> Divider { :light false  :style {:width "100%" :margin "20px 0px 20px 0px"}}]
 
@@ -328,7 +313,9 @@
 	       ])
 
 (defn main-panel []
-  [:> MuiThemeProvider {:theme theme}
+  [:> MuiThemeProvider (do
+                         (js/console.log (-> theme .-typography))
+                         (conj {} {:theme theme}))
     [:div {:style (:root styles)}
 
       [app-bar]
