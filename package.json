@@ -5,7 +5,9 @@
     "main": "",
     "repository": "",
     "directories": {},
-    "dependencies": {},
+    "dependencies": {
+        "typeface-roboto": "0.0.54"
+    },
     "devDependencies": {
         "@material-ui/core": "1.2.1",
         "@material-ui/icons": "1.1.0",
@@ -19,8 +21,7 @@
         "react-highlight.js": "1.0.7",
         "replaceinfiles": "1.1.4",
         "shadow-cljs": "2.4.4",
-        "shx": "0.3.0",
-				"goog": "0.2.1"
+        "shx": "0.3.0"
     },
     "scripts": {
         "clean": "shx rm -rf dist && shx rm -rf resources/public/js",
@@ -33,7 +34,6 @@
         "shadow-start": "shadow-cljs start",
         "shadow-stop": "shadow-cljs stop",
         "dev": "shadow-cljs watch app"
-
     },
     "author": "",
     "license": "MIT"

@@ -8,6 +8,22 @@ npm install -g firebase
 ```
 
 ## Shadow Server
+My way:
+1 shell window:
+-> strat server:
+$ shadow-cljs clj-repl
+in CLJ-REPL:
+(shadow/watch :app)
+- > connect to:
+http://localhost:3000/
+= success: "JS tuntime connected"
+
+2 shell window:
+just git
+
+3 bash window cygwin:
+-> start REPL:
+
 
 To run the following commands faster, spin up a background shadow server:
 

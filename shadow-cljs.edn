@@ -1,4 +1,6 @@
 {:nrepl {:port 9000}
+         
+
 
  :source-paths ["src/cljs"]
 
@@ -12,7 +14,7 @@
   [expound                "0.6.0"]
   [net.cgrand/xforms      "0.14.0"]
   [better-cond            "2.0.1-SNAPSHOT"]
-
+  [proto-repl "0.3.1"]
   [org.clojure/test.check      "0.10.0-alpha2"]
   [com.gfredericks/test.chuck  "0.2.9"]
   [cider/cider-nrepl           "0.16.0"]
