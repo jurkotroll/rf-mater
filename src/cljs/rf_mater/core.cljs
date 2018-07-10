@@ -4,15 +4,13 @@
             [rf-mater.events :as events]
             [rf-mater.routes :as routes]
             [rf-mater.views :as views]
-            [rf-mater.config :as config]
+            [rf-mater.config :as config]))
             ;; [day8.re-frame.http-fx]
-            ))
 
 
 (defn dev-setup []
-  (when config/debug?
-    (enable-console-print!)
-    (println "dev mode")))
+  (when config/debug? (enable-console-print!)
+        (println "dev mode")))
 
 (defn render []
   (re-frame/clear-subscription-cache!)

@@ -42,14 +42,13 @@
             ["@material-ui/icons/ExpandMore" :default ExpandMoreIcon]
             ["@material-ui/icons/MoreVert" :default MoreVertIcon]
             ["@material-ui/icons/Menu" :default MenuIcon]
-            ["@material-ui/icons/HelpOutline" :default HelpOutlineIcon]
-            ))
+            ["@material-ui/icons/HelpOutline" :default HelpOutlineIcon]))
 
 ;;
 (def theme (createMuiTheme #js {}))
 (def set-new-font
-      "\"-apple-system\", \"BlinkMacSystemFont\", \"Segoe UI\",\"Roboto\",  \"Helvetica Neue\", \"Arial\", \"sans-serif\", \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\""
-      )
+  "\"-apple-system\", \"BlinkMacSystemFont\", \"Segoe UI\",\"Roboto\",  \"Helvetica Neue\", \"Arial\", \"sans-serif\", \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"")
+
 (set! (-> theme .-typography .-fontSize) 24)
 (set! (-> theme .-typography .-body2 .-fontSize) "1rem")
 (set! (-> theme .-typography .-body1 .-fontSize) "1rem")
@@ -64,19 +63,19 @@
              :menu-button {:margin-left "-12px"
                            :margin-right "20px"}
              :cont-center {:display "flex"
-					                 :justify-content "center"
-					                 :width "100%"}
+                           :justify-content "center"
+                           :width "100%"}
              :card {:width "99%"
                     :margin-top "10px"
-                    :margin-bottom "50px"
-                    }
+                    :margin-bottom "50px"}
+
              :media {:height "0px"
                      :padding-top "56.25%"}
              :actions {:display "flex"}
-             :expand {:margin-left "auto"
+             :expand {:margin-left "auto"}
                       ; :transform "rotate(0deg)"
                       ; :transition
-                       }
+
              :avatar {:background-color "red"}
              :paper {;:height "200px"
                      ;:width "100%"
@@ -87,42 +86,38 @@
                      :text-align "left"
                      :padding (* 2 (-> theme .-spacing .-unit))
                      :color (-> theme .-palette .-text .-secondary)
-                     :background-color (-> theme .-palette .-primary .-light)
-                     }
+                     :background-color (-> theme .-palette .-primary .-light)}
+
              :contein-temp {;:background-color (-> theme .-palette .-primary .-light)
                             :height "100px"
-                            :width "100%"
-                            }
-             :text-fild-style {:with "400px"}
+                            :width "100%"}
 
-             })
+             :text-fild-style {:with "400px"}})
 
 (defn info-block-main []
   (let []
     [:> Grid {:container true
               :spacing 8
               :style {:display "flex" :justify-content "space-between"}} ;;main information block: when&where
-			[:> Grid {:item true :xs 12 :sm 6 :md 4
-                :style {:padding "10px 0px 10px 20px"}} ;; information  when?
-				[:> Typography {:color "textSecondary" :variant "title" :align "left" :gutterBottom true} "kiedy?"]
-				[:> Typography {:color "primary" :variant "headline"} "25-01-2018"]
-				[:> Typography {:color "primary" :variant "subheading"} "poniedziałek"]
-				[:> Typography {:color "secondary" :variant "subheading"} "za 6 d."]]
-			[:> Hidden {:xlDown true}]
-			[:> Grid {:item true :xs 12 :sm 6 :md 4
-                :style {:display "flex"
-	 										  :flex-direction "column"
-	 										  :justify-content "flex-start"
-	 										  :padding "10px 20px 10px 0px"}} ;; information  where?
-				[:> Typography {:color "textSecondary" :variant "title" :align "right" :gutterBottom true} "dokąd?"]
-				[:> Typography {:color "primary" :variant "display1" :align "right"  :style {:flex-grow 2}} "Jańskie Łaźnie"]
-				[:> Typography {:variant "button" :align "right" :style {:color (-> theme .-palette .-text .-primary)}}
-          [:a {:href ""} "mapa"]]
-			 ]]))
+     [:> Grid {:item true :xs 12 :sm 6 :md 4
+               :style {:padding "10px 0px 10px 20px"}} ;; information  when?
+      [:> Typography {:color "textSecondary" :variant "title" :align "left" :gutterBottom true} "kiedy?"]
+      [:> Typography {:color "primary" :variant "headline"} "25-01-2018"]
+      [:> Typography {:color "primary" :variant "subheading"} "poniedziałek"]
+      [:> Typography {:color "secondary" :variant "subheading"} "za 6 d."]]
+     [:> Hidden {:xlDown true}]
+     [:> Grid {:item true :xs 12 :sm 6 :md 4
+               :style {:display "flex"
+                       :flex-direction "column"
+                       :justify-content "flex-start"
+                       :padding "10px 20px 10px 0px"}} ;; information  where?
+      [:> Typography {:color "textSecondary" :variant "title" :align "right" :gutterBottom true} "dokąd?"]
+      [:> Typography {:color "primary" :variant "display1" :align "right"  :style {:flex-grow 2}} "Jańskie Łaźnie"]
+      [:> Typography {:variant "button" :align "right" :style {:color (-> theme .-palette .-text .-primary)}}
+       [:a {:href ""} "mapa"]]]]))
 
 (defn info-block-about []
-  (let [
-        loc-grids {:el-01 {:xs 6 :sm 2 :md 2 :lg 1}
+  (let [loc-grids {:el-01 {:xs 6 :sm 2 :md 2 :lg 1}
                    :el-02 {:xs 5 :sm 1 :md 1 :lg 1}
                    :el-03 {:xs 1 :sm 1 :md 1 :lg 1 :align "center"}
                    :el-04 {:xs false :sm 1 :md 1 :lg 1}
@@ -131,179 +126,157 @@
                      :form-02 {:color "primary" :variant "subheading"}
                      :form-03 {:color "default" :variant "body1" :style {:padding-left "10px"}}}
         contain-format {:cont-form {:container true :spacing 8 :style {:margin-bottom "20px"}}}]
-               [:> Grid {:container true :spacing 16} ;; second information block
-                [:> Grid (conj {} (:cont-form contain-format));; info about time and place of start
-                   [:> Grid (conj {:item true} (:el-01 loc-grids))
-                     [:> Typography (conj {} (:form-01 text-format)) "wyjazd"]]
+    [:> Grid {:container true :spacing 16} ;; second information block
+     [:> Grid (conj {} (:cont-form contain-format));; info about time and place of start
+      [:> Grid (conj {:item true} (:el-01 loc-grids))
+       [:> Typography (conj {} (:form-01 text-format)) "wyjazd"]]
 
-                   [:> Grid (conj {:item true} (:el-02 loc-grids))
-                     [:> Typography (conj {} (:form-02 text-format)) "6:00"]]
+      [:> Grid (conj {:item true} (:el-02 loc-grids))
+       [:> Typography (conj {} (:form-02 text-format)) "6:00"]]
 
-                   [:> Grid (conj {:item true} (:el-03 loc-grids))
-                     [:> HelpOutlineIcon]]
-                   [:> Grid (conj {:item true} (:el-04 loc-grids))]
-                   [:> Grid (conj {:item true} (:el-05 loc-grids))
-                     [:> Typography (conj {} (:form-03 text-format))  "McD Factory (Wrocław) "
-                      [:a {:href ""} "mapa"]]]]
+      [:> Grid (conj {:item true} (:el-03 loc-grids))
+       [:> HelpOutlineIcon]]
+      [:> Grid (conj {:item true} (:el-04 loc-grids))]
+      [:> Grid (conj {:item true} (:el-05 loc-grids))
+       [:> Typography (conj {} (:form-03 text-format))  "McD Factory (Wrocław) "
+        [:a {:href ""} "mapa"]]]]
 
-            		 [:> Grid (conj {} (:cont-form contain-format)) ;; info about time and place of return
-                   [:> Grid (conj {:item true} (:el-01 loc-grids))
-                     [:> Typography (conj {} (:form-01 text-format)) "powrot"]]
+     [:> Grid (conj {} (:cont-form contain-format)) ;; info about time and place of return
+      [:> Grid (conj {:item true} (:el-01 loc-grids))
+       [:> Typography (conj {} (:form-01 text-format)) "powrot"]]
 
-                   [:> Grid (conj {:item true} (:el-02 loc-grids))
-                     [:> Typography (conj {} (:form-02 text-format)) "20:00"]]
+      [:> Grid (conj {:item true} (:el-02 loc-grids))
+       [:> Typography (conj {} (:form-02 text-format)) "20:00"]]
 
-                   [:> Grid (conj {:item true} (:el-03 loc-grids))
-                     [:> HelpOutlineIcon]]
-                   [:> Grid (conj {:item true} (:el-04 loc-grids))]
-                   [:> Grid (conj {:item true} (:el-05 loc-grids))
-                     [:> Typography (conj {} (:form-03 text-format)) "McD Factory (Wrocław) "
-                       [:a {:href ""} "mapa"]]]]
+      [:> Grid (conj {:item true} (:el-03 loc-grids))
+       [:> HelpOutlineIcon]]
+      [:> Grid (conj {:item true} (:el-04 loc-grids))]
+      [:> Grid (conj {:item true} (:el-05 loc-grids))
+       [:> Typography (conj {} (:form-03 text-format)) "McD Factory (Wrocław) "
+        [:a {:href ""} "mapa"]]]]
 
-            		 [:> Grid (conj {} (:cont-form contain-format)) ;; info about road time&distance
-                   [:> Grid (conj {:item true} (:el-01 loc-grids))
-                      [:> Typography (conj {} (:form-01 text-format)) "w drodze"]]
+     [:> Grid (conj {} (:cont-form contain-format)) ;; info about road time&distance
+      [:> Grid (conj {:item true} (:el-01 loc-grids))
+       [:> Typography (conj {} (:form-01 text-format)) "w drodze"]]
 
-                   [:> Grid (conj {:item true} (:el-02 loc-grids))
-                      [:> Typography (conj {} (:form-02 text-format)) "2,5 h"]]
+      [:> Grid (conj {:item true} (:el-02 loc-grids))
+       [:> Typography (conj {} (:form-02 text-format)) "2,5 h"]]
 
-                   [:> Grid (conj {:item true} (:el-03 loc-grids))
-                      [:> HelpOutlineIcon]]
-                   [:> Grid (conj {:item true} (:el-04 loc-grids))]
-                   [:> Grid (conj {:item true} (:el-05 loc-grids))
-                      [:> Typography (conj {} (:form-03 text-format)) "odległoć 150 km" ]]]
+      [:> Grid (conj {:item true} (:el-03 loc-grids))
+       [:> HelpOutlineIcon]]
+      [:> Grid (conj {:item true} (:el-04 loc-grids))]
+      [:> Grid (conj {:item true} (:el-05 loc-grids))
+       [:> Typography (conj {} (:form-03 text-format)) "odległoć 150 km"]]]
 
-          		   [:> Grid (conj {} (:cont-form contain-format)) ;; info about staeing on slop
-                   [:> Grid (conj {:item true} (:el-01 loc-grids))
-                     [:> Typography (conj {:style {:padding-left "10px"}} (:form-01 text-format)) "na stoku"]]
+     [:> Grid (conj {} (:cont-form contain-format)) ;; info about staeing on slop
+      [:> Grid (conj {:item true} (:el-01 loc-grids))
+       [:> Typography (conj {:style {:padding-left "10px"}} (:form-01 text-format)) "na stoku"]]
 
-                   [:> Grid (conj {:item true} (:el-02 loc-grids))
-                     [:> Typography (conj {} (:form-02 text-format)) "8 h"]]
+      [:> Grid (conj {:item true} (:el-02 loc-grids))
+       [:> Typography (conj {} (:form-02 text-format)) "8 h"]]
 
-                   [:> Grid (conj {:item true} (:el-03 loc-grids))
-                     [:> HelpOutlineIcon]]]
-               ]
-              ))
+      [:> Grid (conj {:item true} (:el-03 loc-grids))
+       [:> HelpOutlineIcon]]]]))
 
 (defn info-block-contact-person []
   [:> Grid {:container true :direction "row" :spacing 16}
-	  [:> Grid {:item true :xs 12 :sm 12 :lg 4 :style {:padding-left "10px"}}
-	    [:> Typography {:variant "subheading"} "Osoba kontaktowa"]]
-	  [:> Grid {:item true :xs 6 :sm 5 :lg 4 :style {:padding-left "10px"}}
-	    [:> Typography {:variant "title"} "Jacek"]]
-	  [:> Grid {:item true :xs 6 :sm 7	:lg 4 :style {:padding-left "10px"}}
-	    [:> Typography {:variant "body2"} "{kontakt do Jacka}"]]
-	  ])
+   [:> Grid {:item true :xs 12 :sm 12 :lg 4 :style {:padding-left "10px"}}
+    [:> Typography {:variant "subheading"} "Osoba kontaktowa"]]
+   [:> Grid {:item true :xs 6 :sm 5 :lg 4 :style {:padding-left "10px"}}
+    [:> Typography {:variant "title"} "Jacek"]]
+   [:> Grid {:item true :xs 6 :sm 7  :lg 4 :style {:padding-left "10px"}}
+    [:> Typography {:variant "body2"} "{kontakt do Jacka}"]]])
 
 (defn info-block-auto []
   [:> Grid {:container true :direction "row" :spacing 16}
-	  [:> Grid {:item true :xs 12 :sm 12 :lg 4 :style {:padding-left "10px"}}
-	    [:> Typography {:variant "subheading"} "Samochod"]]
-	  [:> Grid {:item true :xs 12 :sm 5 :lg 4 :style {:padding-left "10px"}}
-	    [:> Typography {:variant "title"} "VW T4 transporter"]
-      [:> Typography {:variant "body1"} "ilosc miejsc 5"]
-      [:> Typography {:variant "body1"} "kolor czerwony"]
-      [:> Typography {:variant "body1"} "{opis dodatkowy}"]
-    ]
-	  [:> Grid {:item true :xs 12 :sm 7	:lg 4 :style {:padding-left "10px"}}
-	    [:div "{foto auta}"]]
-	  ])
+   [:> Grid {:item true :xs 12 :sm 12 :lg 4 :style {:padding-left "10px"}}
+    [:> Typography {:variant "subheading"} "Samochod"]]
+   [:> Grid {:item true :xs 12 :sm 5 :lg 4 :style {:padding-left "10px"}}
+    [:> Typography {:variant "title"} "VW T4 transporter"]
+    [:> Typography {:variant "body1"} "ilosc miejsc 5"]
+    [:> Typography {:variant "body1"} "kolor czerwony"]
+    [:> Typography {:variant "body1"} "{opis dodatkowy}"]]
+
+   [:> Grid {:item true :xs 12 :sm 7  :lg 4 :style {:padding-left "10px"}}
+    [:div "{foto auta}hh"]]])
 
 (defn info-block-divider []
-  [:> Divider { :light false  :style {:width "100%" :margin "10px 0px 20px 0px"}}])
+  [:> Divider {:light false  :style {:width "100%" :margin "10px 0px 20px 0px"}}])
 
 (defn info-block-passengers-table []
-  (let [
-				loc-grids {:el-01 {:xs 2 :sm 1 :md 1 :align "center"}
-									 :el-02 {:xs 5 :sm 3 :md 3}
-									 :el-03 {:xs 5 :sm 4 :md 3}
-									 :el-04 {:xs 12 :sm 4 :md 3 :align "center"}
-									 :el-05 {}}
-				text-format {:form-01 {:color "default" :variant "body2" :style {:padding-left "10px"}}
-										 :form-02 {:color "primary" :variant "title"}
-										 :form-03 {:color "default" :variant "body1" :style {:padding-left "10px"}}}
-				contain-format {:cont-form {:container true :spacing 8 :style {:margin-bottom "15px"}}}]
-		[:> Grid (conj {:style {:padding "10px 0px 0px 10px"}} (:cont-form contain-format)) ;; list of passengers information block
-			[:> Grid (conj {} (:cont-form contain-format)) ;; info about Jacek
-				[:> Grid (conj {:item true } (:el-01 loc-grids))
-					[:> Avatar {:style {:margin-top "-10px"}} "J"]]
-				[:> Grid (conj {:item true } (:el-02 loc-grids))
-					[:> Typography (conj {} (:form-02 text-format)) "Jacek"]]
-				[:> Grid (conj {:item true } (:el-03 loc-grids))
-					[:> Typography (conj {} (:form-01 text-format)) "kierowca"]]
-				[:> Grid (conj {:item true } (:el-04 loc-grids))
-					[:> Typography (conj {} (:form-01 text-format)) "potwierdzono"]]]
+  (letp [loc-grids {:el-01 {:xs 2 :sm 1 :md 1 :align "center"}}
+                   :el-02 {:xs 5 :sm 3 :md 3}
+                   :el-03 {:xs 5 :sm 4 :md 3}
+                   :el-04 {:xs 12 :sm 4 :md 3 :align "center"}
+                   :el-05 {}]
+        text-format {:form-01 {:color "default" :variant "body2" :style {:padding-left "10px"}}
+                     :form-02 {:color "primary" :variant "title"}
+                     :form-03 {:color "default" :variant "body1" :style {:padding-left "10px"}}}
+        contain-format {:cont-form {:container true :spacing 8 :style {:margin-bottom "15px"}}}
+    [:> Grid (conj {:style {:padding "10px 0px 0px 10px"}} (:cont-form contain-format)) ;; list of passengers information block
+     [:> Grid (conj {} (:cont-form contain-format)) ;; info about Jacek
+      [:> Grid (conj {:item true} (:el-01 loc-grids))
+       [:> Avatar {:style {:margin-top "-10px"}} "J"]]
+      [:> Grid (conj {:item true} (:el-02 loc-grids))
+       [:> Typography (conj {} (:form-02 text-format)) "Jacek"]]
+      [:> Grid (conj {:item true} (:el-03 loc-grids))
+       [:> Typography (conj {} (:form-01 text-format)) "kierowca"]]
+      [:> Grid (conj {:item true} (:el-04 loc-grids))
+       [:> Typography (conj {} (:form-01 text-format)) "potwierdzono"]]]
 
-			[:> Grid (conj {} (:cont-form contain-format)) ;; info about Zofia
-				[:> Grid (conj {:item true } (:el-01 loc-grids))
-					[:> Avatar {:style {:margin-top "-5px"}} "Z"]]
-				[:> Grid (conj {:item true } (:el-02 loc-grids))
-					[:> Typography (conj {} (:form-02 text-format)) "Zofia"]]
-				[:> Grid (conj {:item true } (:el-03 loc-grids))
-					[:> Typography (conj {} (:form-01 text-format)) "pasażer"]]
-				[:> Grid (conj {:item true } (:el-04 loc-grids))
-					[:> Typography (conj {} (:form-01 text-format)) "potwierdzono"]]]
+     [:> Grid (conj {} (:cont-form contain-format)) ;; info about Zofia
+      [:> Grid (conj {:item true} (:el-01 loc-grids))
+       [:> Avatar {:style {:margin-top "-5px"}} "Z"]]
+      [:> Grid (conj {:item true} (:el-02 loc-grids))
+       [:> Typography (conj {} (:form-02 text-format)) "Zofia"]]
+      [:> Grid (conj {:item true} (:el-03 loc-grids))
+       [:> Typography (conj {} (:form-01 text-format)) "pasażer"]]
+      [:> Grid (conj {:item true} (:el-04 loc-grids))
+       [:> Typography (conj {} (:form-01 text-format)) "potwierdzono"]]]
 
-			[:> Grid (conj {} (:cont-form contain-format)) ;; info about Hania
-				[:> Grid (conj {:item true } (:el-01 loc-grids))
-					[:> Avatar {:style {:margin-top "-5px"}} "H"]]
-				[:> Grid (conj {:item true } (:el-02 loc-grids))
-					[:> Typography (conj {} (:form-02 text-format)) "Hania"]]
-				[:> Grid (conj {:item true } (:el-03 loc-grids))
-					[:> Typography (conj {} (:form-01 text-format)) "pasażer"]]
-				[:> Grid (conj {:item true } (:el-04 loc-grids))
-					[:> Typography (conj {} (:form-01 text-format)) "nie potwierdzono"]]]
+     [:> Grid (conj {} (:cont-form contain-format)) ;; info about Hania
+      [:> Grid (conj {:item true} (:el-01 loc-grids))
+       [:> Avatar {:style {:margin-top "-5px"}} "H"]]
+      [:> Grid (conj {:item true} (:el-02 loc-grids))
+       [:> Typography (conj {} (:form-02 text-format)) "Hania"]]
+      [:> Grid (conj {:item true} (:el-03 loc-grids))
+       [:> Typography (conj {} (:form-01 text-format)) "pasażer"]]
+      [:> Grid (conj {:item true} (:el-04 loc-grids))
+       [:> Typography (conj {} (:form-01 text-format)) "nie potwierdzono"]]]
 
-			[:> Grid (conj {} (:cont-form contain-format)) ;; info about Olek
-				[:> Grid (conj {:item true } (:el-01 loc-grids))
-					[:> Avatar {:style {:margin-top "-5px"}} "O"]]
-				[:> Grid (conj {:item true } (:el-02 loc-grids))
-					[:> Typography (conj {} (:form-02 text-format)) "Olek"]]
-				[:> Grid (conj {:item true } (:el-03 loc-grids))
-					[:> Typography (conj {} (:form-01 text-format)) "pasażer"]]
-				[:> Grid (conj {:item true } (:el-04 loc-grids))
-					[:> Typography (conj {} (:form-01 text-format)) "zaproszono"]]]
+     [:> Grid (conj {} (:cont-form contain-format)) ;; info about Olek
+      [:> Grid (conj {:item true} (:el-01 loc-grids))
+       [:> Avatar {:style {:margin-top "-5px"}} "O"]]
+      [:> Grid (conj {:item true} (:el-02 loc-grids))
+       [:> Typography (conj {} (:form-02 text-format)) "Olek"]]
+      [:> Grid (conj {:item true} (:el-03 loc-grids))
+       [:> Typography (conj {} (:form-01 text-format)) "pasażer"]]
+      [:> Grid (conj {:item true} (:el-04 loc-grids))
+       [:> Typography (conj {} (:form-01 text-format)) "zaproszono"]]]
 
-			[:> Grid (conj {} (:cont-form contain-format)) ;; input fild new-passenger
-				[:> Grid (conj {:item true } (:el-01 loc-grids))]
-				[:> Grid (conj {:item true } (:el-03 loc-grids))
-					[:> TextField {:id "with-placeholder"
-												 :label "Dodaj pasażera"
-												 :placeholder "wpisz imię"
-												 :style (:text-fild-style styles)
+     [:> Grid (conj {} (:cont-form contain-format)) ;; input fild new-passenger
+      [:> Grid (conj {:item true} (:el-01 loc-grids))]
+      [:> Grid (conj {:item true} (:el-03 loc-grids))
+       [:> TextField {:id "with-placeholder"
+                      :label "Dodaj pasażera"
+                      :placeholder "wpisz imię"
+                      :style (:text-fild-style styles)
 
-												 :margin "dense"}
-					 "dodawanie pasażera"]]]
-
-		]
-	))
+                      :margin "dense"}
+        "dodawanie pasażera"]]]]))
 
 (defn event-card []
   [:div {:style (:cont-center styles)}
    [:> Card {:style (:card styles)}
-     [:> CardContent
+    [:> CardContent
 
-       [:div {:style (:root styles)}
-         [:> Grid {:container true :spacing 16}
-           [info-block-main] [info-block-divider]
-           [info-block-about] [info-block-divider]
-           [info-block-contact-person] [info-block-divider]
-           [info-block-auto] [info-block-divider]
-           [info-block-passengers-table]
-         ]
-       ]
-      ]
-    ]]
-  )
-
-
-
-
-
-
-
-
-     ; [:> Typography {:component "p"}
+     [:div {:style (:root styles)}
+      [:> Grid {:container true :spacing 16}
+       [info-block-main] [info-block-divider]
+       [info-block-about] [info-block-divider]
+       [info-block-contact-person] [info-block-divider]
+       [info-block-auto] [info-block-divider]
+       [info-block-passengers-table]]]]]]); [:> Typography {:component "p"}
      ;      "This impressive paella is a perfect party dish and a fun meal to cook together
      ;       with your guests. Add 1 cup of frozen peas along with the mussels, if you like."]
      ; ]
@@ -350,35 +323,27 @@
 
 
 (defn app-bar []
-        [:> AppBar {:position "static"}
-	        [:> Toolbar
-	          [:> IconButton {:style (:menu-button styles)
-	                          :color "inherit"
-	                          :aria-label "Menu"}
-	            [:> MenuIcon]]
-	          [:> Typography {:variant "title"
-	                          :color "inherit"
-	                          :style (:flex styles)}
-	            "Razem Na Stok"]
-	          [:> Button {:color "inherit"}
-	            "Login"]]
-	       ])
+  [:> AppBar {:position "static"}
+   [:> Toolbar
+    [:> IconButton {:style (:menu-button styles)
+                    :color "inherit"
+                    :aria-label "Menu"}
+     [:> MenuIcon]]
+    [:> Typography {:variant "title"
+                    :color "inherit"
+                    :style (:flex styles)}
+     "Razem Na Stok"]
+    [:> Button {:color "inherit"}
+     "Login"]]])
 
 (defn main-panel []
   [:> MuiThemeProvider (do
                          ;(js/console.log (-> theme .-typography))
                          (conj {} {:theme theme}))
-    [:div {:style (:root styles)}
+   [:div {:style (:root styles)}
 
-      [app-bar]
-    	[event-card]
-
-]])
-
-
-
-
-
+    [app-bar]
+    [event-card]]])
 
 ;; (defn destination-card []
 ;;   (let []
@@ -518,8 +483,6 @@
 ;;         [ui/divider]
 ;; 				[cards-with-passangers]
 ;;        ])))
-
-
 
 
 ;; (defn home-panel []
