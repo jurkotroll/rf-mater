@@ -6,33 +6,32 @@
    [goog.events :as gevents]
    [goog.history.EventType :as EventType]
    [re-frame.core :as re-frame]
-   [rf-mater.events :as events]
-   ))
+   [rf-mater.events :as events]))
+
 
 (defn hook-browser-navigation! []
   (doto
-  	;(+ 1 2) ;just for DOTO not be empty
+    ;(+ 1 2) ;just for DOTO not be empty
     (History.)
     (gevents/listen
      EventType/NAVIGATE
      (fn [event]
        (secretary/dispatch! (.-token event))))
-    (.setEnabled true)
-    )
-  )
+    (.setEnabled true)))
+
+
 
 (defn app-routes []
    (secretary/set-config! :prefix "#")
    ;; --------------------
    ;; define routes here
   (defroute "/" []
-    (re-frame/dispatch [::events/set-active-panel :home-panel])
-    )
+    (re-frame/dispatch [::events/set-active-panel :home-panel]))
+
 
   (defroute "/about" []
     (re-frame/dispatch [::events/set-active-panel :about-panel]))
 
 
   ;; --------------------
-  (hook-browser-navigation!)
-  )
+  (hook-browser-navigation!))

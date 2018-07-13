@@ -1,6 +1,7 @@
 (ns rf-mater.views
   (:require [re-frame.core :as re-frame]
             [rf-mater.subs :as subs]
+            [rf-mater.events :as events]
             ;; [cljsjs.material-ui]
             ;; [cljs-react-material-ui.core :refer [get-mui-theme color]]
             ;; [cljs-react-material-ui.reagent :as ui]
@@ -95,26 +96,33 @@
              :text-fild-style {:with "400px"}})
 
 (defn info-block-main []
-  (let []
+  (let [];travel-data @(re-frame/subscribe [:sub-event-data  "travel001"])]
     [:> Grid {:container true
               :spacing 8
               :style {:display "flex" :justify-content "space-between"}} ;;main information block: when&where
      [:> Grid {:item true :xs 12 :sm 6 :md 4
                :style {:padding "10px 0px 10px 20px"}} ;; information  when?
-      [:> Typography {:color "textSecondary" :variant "title" :align "left" :gutterBottom true} "kiedy?"]
-      [:> Typography {:color "primary" :variant "headline"} "25-01-2018"]
-      [:> Typography {:color "primary" :variant "subheading"} "poniedziałek"]
-      [:> Typography {:color "secondary" :variant "subheading"} "za 6 d."]]
+      [:> Typography {:color "textSecondary" :variant "title" :align "left" :gutterBottom true}
+        "kiedy?"]
+      [:> Typography {:color "primary" :variant "headline"}
+        (str "25-01-2018" #_(:travel/data travel-data))]
+      [:> Typography {:color "primary" :variant "subheading"}
+        "poniedziałek"]
+      [:> Typography {:color "secondary" :variant "subheading"}
+        "za 6 d."]]
      [:> Hidden {:xlDown true}]
      [:> Grid {:item true :xs 12 :sm 6 :md 4
                :style {:display "flex"
                        :flex-direction "column"
                        :justify-content "flex-start"
                        :padding "10px 20px 10px 0px"}} ;; information  where?
-      [:> Typography {:color "textSecondary" :variant "title" :align "right" :gutterBottom true} "dokąd?"]
-      [:> Typography {:color "primary" :variant "display1" :align "right"  :style {:flex-grow 2}} "Jańskie Łaźnie"]
+      [:> Typography {:color "textSecondary" :variant "title" :align "right" :gutterBottom true}
+        "dokąd?"]
+      [:> Typography {:color "primary" :variant "display1" :align "right"  :style {:flex-grow 2}}
+        "Jańskie Łaźnie"]
       [:> Typography {:variant "button" :align "right" :style {:color (-> theme .-palette .-text .-primary)}}
-       [:a {:href ""} "mapa"]]]]))
+        [:a {:href ""}
+          "mapa"]]]]))
 
 (defn info-block-about []
   (let [loc-grids {:el-01 {:xs 6 :sm 2 :md 2 :lg 1}
@@ -320,7 +328,8 @@
      ;     [:> Typography
      ;       "Set aside off of the heat to let rest for 10 minutes, and then serve."]
      ;     ]
-
+(defn new-user []
+ (re-frame/dispatch [::events/add-new-user "user017"]))
 
 (defn app-bar []
   [:> AppBar {:position "static"}
@@ -329,6 +338,7 @@
                     :color "inherit"
                     :aria-label "Menu"}
      [:> MenuIcon]]
+    [:> Button {:color "inherit" :on-click #(new-user)} "New user"]
     [:> Typography {:variant "title"
                     :color "inherit"
                     :style (:flex styles)}
@@ -345,65 +355,9 @@
     [app-bar]
     [event-card]]])
 
-;; (defn destination-card []
-;;   (let []
-;;     (fn []
-;;       [ui/card {:style {:margin "10px 0px"}}
 
-;;          [:div.destination {:style {:padding "5px"
-;;                         :display "flex"
-;;                         :justify-content "space-between"
-;;                        :align-items "center"}}
 
-;;           [ui/card-title {:title "Jańskie Łaźnie"
-;;                           :subtitle "miejsce docelowe"
-;;                           :style {:padding "5px"}}]
 
-;;           [ui/raised-button {:label "negocjacja"
-;;                               :primary true
-;;                               :disable false}]]
-
-;;         [:div.day {:style {:padding "5px"
-;;                        :display "flex"
-;;                        :justify-content "space-between"
-;;                        :align-items "center"}}
-
-;;           [ui/card-title {:title "sobota, 14-04-18"
-;;                           :subtitle "dzień wyjazdu"
-;;                           :style {:padding "5px"
-;;                                    :font-size "20px"}}]
-
-;;           [ui/raised-button {:label "negocjacja"
-;;                              :primary true
-;;                              :disable false}]]
-;;         [ui/divider]
-;;         [ui/card-text
-;;           [ui/table
-;;             [ui/table-body {:display-row-checkbox false}
-;;               [ui/table-row
-;;                 [ui/table-row-column "odległosc"]
-;;                  [ui/table-row-column "150km"]
-;;               ]
-;;               [ui/table-row
-;;                 [ui/table-row-column "w drodze"]
-;;                  [ui/table-row-column "2,5h"]
-;;               ]
-;;               [ui/table-row
-;;                 [ui/table-row-column "wyjazd"]
-;;                  [ui/table-row-column "7:00"]
-;;               ]
-;;               [ui/table-row
-;;                 [ui/table-row-column "na stoku"]
-;;                  [ui/table-row-column "8h"]
-;;               ]
-;;               [ui/table-row
-;;                 [ui/table-row-column "powrot"]
-;;                  [ui/table-row-column "18:00"]
-;;               ]]]]
-;;        ])))
-
-;; (defn avatarN []
-;;   [ui/avatar "2"])
 
 ;; (defn tabel-row-passenger [])
 

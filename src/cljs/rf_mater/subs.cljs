@@ -1,16 +1,17 @@
 (ns rf-mater.subs
   (:require
-   [re-frame.core :as re-frame]))
+   [re-frame.core :as rf]))
 
-(re-frame/reg-sub
- ::name
- (fn [db]
-   (:name db)))
+(rf/reg-sub
+ :sub-event-data
+ (fn [db [_ travel-id]]
+  (let [travel (travel-id db)]
+    travel)))
 
-(re-frame/reg-sub
- ::active-panel
- (fn [db _]
-   (:active-panel db)))
+; (re-frame/reg-sub
+;  ::active-panel
+;  (fn [db _]
+;    (:active-panel db)))
 
 
 ;; (re-frame/reg-sub
