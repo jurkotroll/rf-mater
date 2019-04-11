@@ -11,5 +11,5 @@
 .firebaserc
 out
 .nrepl-*
-resources/public/js
+resources/public/
 dist
